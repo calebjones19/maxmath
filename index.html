@@ -1185,7 +1185,42 @@ const MAV_CONFETTI=["#E23636","#FFD700","#0066CC","#ff4444","#1A1A2E","#4ade80"]
 
 const SIGHT_WORDS=["here","you","come","go","is","me","my","see","the","to","up","we","and","do","got","had","he","she","black","can","did","him","of","green","orange","has","on","in","his","look","like","it","have","be","at","am","for","get","play"];
 const COLOR_WORDS={"green":"#22c55e","orange":"#f97316","black":"#1e293b"};
-const WORD_PICS={"here":"📍","you":"👉","come":"🏃","go":"🚶","see":"👀","me":"🙋","up":"⬆️","we":"👫","play":"⛹️","look":"🔍","he":"👦","she":"👧","green":"🟢","orange":"🟠","black":"⚫","can":"💪","do":"✅","got":"🎁","get":"🫴","had":"📦","did":"✏️","him":"👦","has":"🎒","on":"🔛","in":"📥","his":"👔","like":"❤️","it":"👆","have":"🤲","be":"🌟","at":"📌","am":"😊","for":"🎀","and":"🤝","my":"💖","the":"📄","to":"➡️"};
+// SVG picture illustrations for picturable sight words
+const WORD_IMAGES={
+"see":`<svg viewBox="0 0 200 120" width="180"><ellipse cx="55" cy="60" rx="42" ry="35" fill="#fff" stroke="#333" stroke-width="4"/><circle cx="60" cy="58" r="18" fill="#3B82F6"/><circle cx="63" cy="54" r="7" fill="#1E293B"/><circle cx="67" cy="50" r="3" fill="#fff"/><ellipse cx="145" cy="60" rx="42" ry="35" fill="#fff" stroke="#333" stroke-width="4"/><circle cx="150" cy="58" r="18" fill="#3B82F6"/><circle cx="153" cy="54" r="7" fill="#1E293B"/><circle cx="157" cy="50" r="3" fill="#fff"/></svg>`,
+"look":`<svg viewBox="0 0 200 200" width="160"><circle cx="80" cy="80" r="55" fill="none" stroke="#7C3AED" stroke-width="12"/><line x1="120" y1="120" x2="175" y2="175" stroke="#7C3AED" stroke-width="14" stroke-linecap="round"/><circle cx="80" cy="80" r="20" fill="#C4B5FD" opacity="0.5"/></svg>`,
+"up":`<svg viewBox="0 0 200 200" width="160"><polygon points="100,15 170,100 130,100 130,185 70,185 70,100 30,100" fill="#22C55E" stroke="#16A34A" stroke-width="3"/></svg>`,
+"play":`<svg viewBox="0 0 200 200" width="160"><circle cx="100" cy="105" r="75" fill="#EF4444"/><path d="M100 33 Q110 60 135 55" fill="none" stroke="#fff" stroke-width="3" opacity="0.4"/><line x1="25" y1="105" x2="175" y2="105" stroke="#fff" stroke-width="3"/><path d="M100 30 Q100 50 115 65 Q130 80 130 105" stroke="#fff" stroke-width="3" fill="none"/></svg>`,
+"he":`<svg viewBox="0 0 200 200" width="160"><circle cx="100" cy="75" r="50" fill="#FBBF24"/><rect x="55" y="28" width="90" height="35" rx="8" fill="#3B82F6"/><circle cx="80" cy="68" r="7" fill="#1E293B"/><circle cx="120" cy="68" r="7" fill="#1E293B"/><path d="M80 95 Q100 115 120 95" fill="none" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/><rect x="75" y="130" width="50" height="55" rx="10" fill="#3B82F6"/></svg>`,
+"him":`<svg viewBox="0 0 200 200" width="160"><circle cx="100" cy="75" r="50" fill="#FBBF24"/><rect x="55" y="28" width="90" height="35" rx="8" fill="#3B82F6"/><circle cx="80" cy="68" r="7" fill="#1E293B"/><circle cx="120" cy="68" r="7" fill="#1E293B"/><path d="M80 95 Q100 115 120 95" fill="none" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/><rect x="75" y="130" width="50" height="55" rx="10" fill="#3B82F6"/></svg>`,
+"his":`<svg viewBox="0 0 200 200" width="160"><circle cx="100" cy="75" r="50" fill="#FBBF24"/><rect x="55" y="28" width="90" height="35" rx="8" fill="#3B82F6"/><circle cx="80" cy="68" r="7" fill="#1E293B"/><circle cx="120" cy="68" r="7" fill="#1E293B"/><path d="M80 95 Q100 115 120 95" fill="none" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/><rect x="75" y="130" width="50" height="55" rx="10" fill="#3B82F6"/></svg>`,
+"she":`<svg viewBox="0 0 200 200" width="160"><circle cx="100" cy="80" r="50" fill="#FBBF24"/><path d="M52 55 Q55 15 100 20 Q145 15 148 55" fill="#EC4899"/><circle cx="40" cy="70" r="14" fill="#EC4899"/><circle cx="160" cy="70" r="14" fill="#EC4899"/><circle cx="82" cy="72" r="7" fill="#1E293B"/><circle cx="118" cy="72" r="7" fill="#1E293B"/><path d="M82 100 Q100 118 118 100" fill="none" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/><path d="M75 135 L65 190 L135 190 L125 135Z" fill="#EC4899"/></svg>`,
+"go":`<svg viewBox="0 0 200 200" width="160"><rect x="55" y="8" width="90" height="184" rx="42" fill="#374151" stroke="#1F2937" stroke-width="3"/><circle cx="100" cy="52" r="26" fill="#EF4444" opacity="0.3"/><circle cx="100" cy="100" r="26" fill="#FBBF24" opacity="0.3"/><circle cx="100" cy="150" r="26" fill="#22C55E"/></svg>`,
+"come":`<svg viewBox="0 0 200 200" width="160"><circle cx="130" cy="50" r="30" fill="#FBBF24"/><circle cx="120" cy="44" r="5" fill="#1E293B"/><circle cx="140" cy="44" r="5" fill="#1E293B"/><path d="M120 60 Q130 72 140 60" fill="none" stroke="#1E293B" stroke-width="3"/><rect x="110" y="85" width="40" height="50" rx="8" fill="#8B5CF6"/><line x1="110" y1="100" x2="60" y2="80" stroke="#FBBF24" stroke-width="8" stroke-linecap="round"/><line x1="60" y1="80" x2="40" y2="60" stroke="#FBBF24" stroke-width="8" stroke-linecap="round"/><path d="M35 45 L40 60 L55 55" fill="none" stroke="#FBBF24" stroke-width="5" stroke-linecap="round"/></svg>`,
+"green":`<svg viewBox="0 0 200 200" width="160"><rect x="90" y="130" width="20" height="60" fill="#92400E" rx="3"/><ellipse cx="100" cy="85" rx="65" ry="60" fill="#22C55E"/><ellipse cx="75" cy="75" rx="25" ry="20" fill="#4ADE80" opacity="0.6"/></svg>`,
+"orange":`<svg viewBox="0 0 200 200" width="160"><circle cx="100" cy="115" r="70" fill="#F97316"/><ellipse cx="85" cy="105" rx="25" ry="20" fill="#FB923C" opacity="0.5"/><path d="M98 45 Q90 20 100 12 Q110 20 102 45" fill="#22C55E" stroke="#16A34A" stroke-width="2"/><line x1="100" y1="45" x2="100" y2="55" stroke="#92400E" stroke-width="4" stroke-linecap="round"/></svg>`,
+"black":`<svg viewBox="0 0 200 200" width="160"><ellipse cx="100" cy="130" rx="60" ry="45" fill="#1E293B"/><circle cx="100" cy="75" r="38" fill="#1E293B"/><polygon points="68,46 58,18 80,40" fill="#1E293B"/><polygon points="132,46 142,18 120,40" fill="#1E293B"/><circle cx="86" cy="68" r="10" fill="#FDE047"/><circle cx="114" cy="68" r="10" fill="#FDE047"/><circle cx="86" cy="68" r="5" fill="#1E293B"/><circle cx="114" cy="68" r="5" fill="#1E293B"/><ellipse cx="100" cy="85" rx="5" ry="4" fill="#F472B6"/><path d="M62 92 Q42 90 30 85" stroke="#1E293B" stroke-width="3" fill="none"/><path d="M62 98 Q42 100 28 98" stroke="#1E293B" stroke-width="3" fill="none"/><path d="M138 92 Q158 90 170 85" stroke="#1E293B" stroke-width="3" fill="none"/><path d="M138 98 Q158 100 172 98" stroke="#1E293B" stroke-width="3" fill="none"/><path d="M135 175 Q155 185 170 175" stroke="#1E293B" stroke-width="8" stroke-linecap="round" fill="none"/></svg>`,
+"like":`<svg viewBox="0 0 200 200" width="160"><path d="M100 175 C40 125 8 85 8 55 Q8 15 48 15 Q73 15 100 45 Q127 15 152 15 Q192 15 192 55 C192 85 160 125 100 175Z" fill="#EF4444"/><path d="M70 50 Q55 40 48 55" fill="none" stroke="#fff" stroke-width="4" opacity="0.3" stroke-linecap="round"/></svg>`,
+"we":`<svg viewBox="0 0 200 200" width="160"><circle cx="65" cy="60" r="32" fill="#3B82F6"/><circle cx="52" cy="54" r="5" fill="#fff"/><circle cx="78" cy="54" r="5" fill="#fff"/><path d="M52 72 Q65 84 78 72" fill="none" stroke="#fff" stroke-width="3"/><rect x="45" y="98" width="40" height="50" rx="8" fill="#3B82F6"/><circle cx="135" cy="60" r="32" fill="#EC4899"/><circle cx="122" cy="54" r="5" fill="#fff"/><circle cx="148" cy="54" r="5" fill="#fff"/><path d="M122 72 Q135 84 148 72" fill="none" stroke="#fff" stroke-width="3"/><rect x="115" y="98" width="40" height="50" rx="8" fill="#EC4899"/><path d="M85 115 L115 115" stroke="#FDE047" stroke-width="6" stroke-linecap="round"/></svg>`,
+"me":`<svg viewBox="0 0 200 200" width="160"><circle cx="100" cy="65" r="42" fill="#FBBF24"/><circle cx="85" cy="58" r="6" fill="#1E293B"/><circle cx="115" cy="58" r="6" fill="#1E293B"/><path d="M85 80 Q100 95 115 80" fill="none" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/><rect x="78" y="112" width="44" height="50" rx="10" fill="#22C55E"/><line x1="78" y1="130" x2="50" y2="115" stroke="#FBBF24" stroke-width="8" stroke-linecap="round"/><line x1="50" y1="115" x2="45" y2="90" stroke="#FBBF24" stroke-width="8" stroke-linecap="round"/><path d="M40 85 L45 90 L50 82" fill="none" stroke="#FBBF24" stroke-width="5" stroke-linecap="round"/></svg>`,
+"my":`<svg viewBox="0 0 200 200" width="160"><circle cx="100" cy="65" r="42" fill="#FBBF24"/><circle cx="85" cy="58" r="6" fill="#1E293B"/><circle cx="115" cy="58" r="6" fill="#1E293B"/><path d="M85 80 Q100 95 115 80" fill="none" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/><rect x="78" y="112" width="44" height="50" rx="10" fill="#22C55E"/><path d="M100 175 C55 140 25 110 25 85 Q25 60 50 60 Q70 60 80 78" fill="#EF4444" opacity="0.7"/><path d="M100 175 C145 140 175 110 175 85 Q175 60 150 60 Q130 60 120 78" fill="#EF4444" opacity="0.7"/></svg>`,
+"you":`<svg viewBox="0 0 200 200" width="160"><circle cx="55" cy="55" r="35" fill="#FBBF24"/><circle cx="43" cy="48" r="5" fill="#1E293B"/><circle cx="67" cy="48" r="5" fill="#1E293B"/><path d="M43 68 Q55 80 67 68" fill="none" stroke="#1E293B" stroke-width="3"/><rect x="38" y="95" width="34" height="45" rx="8" fill="#8B5CF6"/><line x1="72" y1="110" x2="155" y2="85" stroke="#FBBF24" stroke-width="8" stroke-linecap="round"/><circle cx="165" cy="82" r="12" fill="#FBBF24"/></svg>`,
+"can":`<svg viewBox="0 0 200 200" width="160"><circle cx="100" cy="60" r="38" fill="#FBBF24"/><circle cx="87" cy="53" r="6" fill="#1E293B"/><circle cx="113" cy="53" r="6" fill="#1E293B"/><path d="M87 75 Q100 88 113 75" fill="none" stroke="#1E293B" stroke-width="4"/><rect x="78" y="103" width="44" height="50" rx="8" fill="#EF4444"/><line x1="78" y1="120" x2="40" y2="100" stroke="#FBBF24" stroke-width="8" stroke-linecap="round"/><line x1="40" y1="100" x2="55" y2="65" stroke="#FBBF24" stroke-width="8" stroke-linecap="round"/><line x1="122" y1="120" x2="160" y2="100" stroke="#FBBF24" stroke-width="8" stroke-linecap="round"/><line x1="160" y1="100" x2="145" y2="65" stroke="#FBBF24" stroke-width="8" stroke-linecap="round"/><text x="100" y="190" text-anchor="middle" font-size="22" fill="#EF4444" font-weight="bold">SUPER!</text></svg>`,
+"get":`<svg viewBox="0 0 200 200" width="160"><rect x="55" y="80" width="90" height="80" rx="8" fill="#8B5CF6"/><rect x="45" y="70" width="110" height="18" rx="4" fill="#7C3AED"/><path d="M100 70 L100 35" stroke="#EF4444" stroke-width="4"/><circle cx="100" cy="28" r="10" fill="#EF4444"/><path d="M80 105 L95 125 L120 95" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+"got":`<svg viewBox="0 0 200 200" width="160"><rect x="45" y="65" width="110" height="100" rx="8" fill="#EC4899"/><path d="M45 65 L100 30 L155 65" fill="#F472B6" stroke="#EC4899" stroke-width="3"/><rect x="35" y="60" width="130" height="18" rx="4" fill="#DB2777"/><circle cx="100" cy="40" r="18" fill="#FDE047" stroke="#F59E0B" stroke-width="3"/></svg>`,
+"in":`<svg viewBox="0 0 200 200" width="160"><path d="M30 85 L30 170 L170 170 L170 85" fill="#D4A574" stroke="#92400E" stroke-width="5" fill-opacity="0.7"/><rect x="25" y="75" width="150" height="18" rx="3" fill="#92400E"/><circle cx="100" cy="45" r="22" fill="#EF4444"/><path d="M100 67 L100 90" stroke="#EF4444" stroke-width="3" stroke-dasharray="5,4"/><polygon points="92,88 100,100 108,88" fill="#EF4444"/></svg>`,
+"on":`<svg viewBox="0 0 200 200" width="160"><rect x="70" y="20" width="60" height="110" rx="30" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="4"/><circle cx="100" cy="45" r="18" fill="#22C55E"/><rect x="55" y="150" width="90" height="14" rx="4" fill="#94A3B8"/><rect x="85" y="136" width="30" height="18" rx="4" fill="#6B7280"/></svg>`,
+"do":`<svg viewBox="0 0 200 200" width="160"><circle cx="100" cy="100" r="80" fill="#22C55E"/><path d="M60 100 L90 130 L145 70" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+"did":`<svg viewBox="0 0 200 200" width="160"><circle cx="100" cy="100" r="80" fill="#22C55E"/><path d="M60 100 L90 130 L145 70" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/><text x="100" y="192" text-anchor="middle" font-size="18" fill="#22C55E" font-weight="bold">DONE!</text></svg>`,
+"have":`<svg viewBox="0 0 200 200" width="160"><path d="M50 120 Q50 80 70 80 L80 80 Q80 55 100 55 Q120 55 120 80 L130 80 Q150 80 150 120 L150 150 Q150 165 135 165 L65 165 Q50 165 50 150Z" fill="#FBBF24" stroke="#F59E0B" stroke-width="3"/><circle cx="100" cy="120" r="25" fill="#3B82F6"/><circle cx="100" cy="118" r="10" fill="#60A5FA"/></svg>`,
+"had":`<svg viewBox="0 0 200 200" width="160"><path d="M50 120 Q50 80 70 80 L80 80 Q80 55 100 55 Q120 55 120 80 L130 80 Q150 80 150 120 L150 150 Q150 165 135 165 L65 165 Q50 165 50 150Z" fill="#FBBF24" stroke="#F59E0B" stroke-width="3" opacity="0.5"/><circle cx="100" cy="120" r="25" fill="#3B82F6" opacity="0.5"/><line x1="40" y1="40" x2="160" y2="170" stroke="#EF4444" stroke-width="6" stroke-linecap="round"/></svg>`,
+"here":`<svg viewBox="0 0 200 200" width="160"><circle cx="100" cy="80" r="60" fill="#EF4444" opacity="0.2"/><circle cx="100" cy="80" r="35" fill="#EF4444" opacity="0.3"/><circle cx="100" cy="80" r="12" fill="#EF4444"/><polygon points="100,140 85,185 115,185" fill="#EF4444"/></svg>`,
+"at":`<svg viewBox="0 0 200 200" width="160"><circle cx="100" cy="100" r="80" fill="none" stroke="#EF4444" stroke-width="6"/><circle cx="100" cy="100" r="55" fill="none" stroke="#FBBF24" stroke-width="5"/><circle cx="100" cy="100" r="30" fill="none" stroke="#22C55E" stroke-width="5"/><circle cx="100" cy="100" r="10" fill="#3B82F6"/></svg>`,
+"for":`<svg viewBox="0 0 200 200" width="160"><rect x="40" y="55" width="120" height="95" rx="10" fill="#EC4899"/><path d="M40 85 L100 40 L160 85" fill="#F472B6" stroke="#EC4899" stroke-width="2"/><rect x="30" y="80" width="140" height="12" rx="3" fill="#DB2777"/><path d="M100 30 Q115 10 130 25" fill="none" stroke="#FDE047" stroke-width="4" stroke-linecap="round"/><circle cx="133" cy="22" r="6" fill="#FDE047"/></svg>`,
+"am":`<svg viewBox="0 0 200 200" width="160"><circle cx="100" cy="85" r="65" fill="#FBBF24"/><circle cx="75" cy="72" r="10" fill="#1E293B"/><circle cx="125" cy="72" r="10" fill="#1E293B"/><circle cx="78" cy="68" r="3" fill="#fff"/><circle cx="128" cy="68" r="3" fill="#fff"/><path d="M70 105 Q100 140 130 105" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/></svg>`,
+"be":`<svg viewBox="0 0 200 200" width="160"><circle cx="100" cy="100" r="70" fill="#FDE047"/><path d="M70 75 Q100 50 130 75" fill="none" stroke="#1E293B" stroke-width="4"/><circle cx="78" cy="90" r="8" fill="#1E293B"/><circle cx="122" cy="90" r="8" fill="#1E293B"/><path d="M75 120 Q100 145 125 120" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/><line x1="55" y1="40" x2="45" y2="15" stroke="#FDE047" stroke-width="5" stroke-linecap="round"/><line x1="100" y1="28" x2="100" y2="5" stroke="#FDE047" stroke-width="5" stroke-linecap="round"/><line x1="145" y1="40" x2="155" y2="15" stroke="#FDE047" stroke-width="5" stroke-linecap="round"/></svg>`,
+"has":`<svg viewBox="0 0 200 200" width="160"><path d="M60 80 Q60 30 100 30 Q140 30 140 80 L140 85 L155 85 L155 170 L45 170 L45 85 L60 85Z" fill="#8B5CF6" stroke="#7C3AED" stroke-width="3"/><rect x="85" y="115" width="30" height="30" rx="4" fill="#FDE047"/></svg>`
+};
 
 // ============ MAVERICK'S GENERATORS ============
 
@@ -1299,126 +1334,15 @@ function genAlphabet(){
 // ======== SIGHT WORDS ========
 function genSightWords(){
   const hero=pick(HEROES);const emoji=HERO_EMOJI[hero];
-  const G=[
-    // 1. See a picture — pick the matching word
-    function(){
-      const picWords=SIGHT_WORDS.filter(w=>WORD_PICS[w]);
-      const word=pick(picWords);
-      const wrongs=shuffle(picWords.filter(w=>w!==word)).slice(0,3);
-      const pic=WORD_PICS[word];
-      const vis=`<div style="font-size:80px;text-align:center;padding:16px">${pic}</div>`;
-      return{teach:`${hero} says: Look at the picture! Can you find the word that matches?`,
-        question:`Which word matches this picture?`,
-        visual:vis,
-        answer:word,type:"choice",choices:shuffle([word,...wrongs]),level:"Warm-Up",
-        hint1:`The word starts with "${word[0]}". Sound it out!`,
-        explanation:`The answer is "${word}"! ${pic} ${emoji} Awesome reading! ⭐`};
-    },
-    // 2. Pick the right word to finish the sentence
-    function(){
-      const sentences=[
-        {word:"the",sentence:"I see ___ cat.",hint:"It's a small word before 'cat'"},
-        {word:"is",sentence:"He ___ happy.",hint:"A tiny word that means something exists"},
-        {word:"see",sentence:"I can ___ you!",hint:"What your eyes do"},
-        {word:"go",sentence:"Let's ___ play!",hint:"It means to move somewhere"},
-        {word:"and",sentence:"Max ___ Mav are brothers.",hint:"A word that joins two things"},
-        {word:"my",sentence:"This is ___ toy.",hint:"It belongs to me"},
-        {word:"we",sentence:"___ like to play.",hint:"It means you and me together"},
-        {word:"can",sentence:"I ___ do it!",hint:"It means you are able to"},
-        {word:"like",sentence:"I ___ pizza!",hint:"It means you enjoy something"},
-        {word:"up",sentence:"Look ___!",hint:"The opposite of down"},
-        {word:"he",sentence:"___ is my friend.",hint:"A word for a boy"},
-        {word:"she",sentence:"___ is nice.",hint:"A word for a girl"},
-        {word:"you",sentence:"I see ___!",hint:"The person I'm talking to"},
-        {word:"come",sentence:"___ here, please!",hint:"It means to move toward someone"},
-        {word:"look",sentence:"___ at that!",hint:"What you do with your eyes"},
-        {word:"play",sentence:"Let's go ___!",hint:"Something fun to do"},
-        {word:"have",sentence:"I ___ a dog.",hint:"It means you own something"},
-        {word:"for",sentence:"This is ___ you.",hint:"A small word that means 'meant to go to'"},
-        {word:"in",sentence:"The cat is ___ the box.",hint:"The opposite of out"},
-        {word:"at",sentence:"Look ___ me!",hint:"A tiny word that points to something"},
-        {word:"am",sentence:"I ___ happy!",hint:"A word that goes with 'I'"},
-        {word:"get",sentence:"Go ___ your shoes.",hint:"It means to grab or fetch"},
-        {word:"do",sentence:"What ___ you want?",hint:"A little helper word in questions"},
-        {word:"got",sentence:"I ___ a new toy!",hint:"Past tense of 'get'"},
-        {word:"had",sentence:"She ___ fun today.",hint:"Past tense of 'have'"},
-        {word:"did",sentence:"I ___ my homework.",hint:"Past tense of 'do'"},
-        {word:"his",sentence:"That is ___ ball.",hint:"It belongs to him"},
-        {word:"has",sentence:"She ___ a red hat.",hint:"It means she owns something"},
-        {word:"on",sentence:"The book is ___ the table.",hint:"The opposite of off"},
-        {word:"it",sentence:"I like ___!",hint:"A tiny word that stands for a thing"},
-        {word:"be",sentence:"I want to ___ a hero!",hint:"It means to exist or become"},
-        {word:"here",sentence:"Come over ___!",hint:"This place right where I am"},
-        {word:"him",sentence:"I gave it to ___.",hint:"A word for a boy (not 'he')"},
-        {word:"of",sentence:"A cup ___ water.",hint:"A tiny word that connects things"},
-        {word:"me",sentence:"Give it to ___!",hint:"The word for myself"},
-        {word:"to",sentence:"I want ___ go!",hint:"A tiny word before action words"}
-      ];
-      const s=pick(sentences);
-      const wrongs=shuffle(SIGHT_WORDS.filter(w=>w!==s.word)).slice(0,3);
-      return{teach:`${hero} needs your help! Read the sentence and pick the missing word.`,
-        question:`Pick the word that fits: "${s.sentence}"`,
-        answer:s.word,type:"choice",choices:shuffle([s.word,...wrongs]),level:"Building Up",
-        hint1:s.hint,
-        explanation:`"${s.sentence.replace("___",s.word)}" — The word is "${s.word}"! ${emoji} Super reader! ⭐`};
-    },
-    // 3. Unscramble the word
-    function(){
-      const word=pick(SIGHT_WORDS.filter(w=>w.length>=2));
-      let scrambled=shuffle(word.split("")).join("");
-      let tries=0;
-      while(scrambled===word&&tries<10){scrambled=shuffle(word.split("")).join("");tries++}
-      const wrongs=shuffle(SIGHT_WORDS.filter(w=>w!==word&&w.length>=2)).slice(0,3);
-      return{teach:`${hero} says: The letters got all mixed up! Can you put them back together?`,
-        question:`Unscramble these letters to make a word: "${scrambled}"`,
-        answer:word,type:"choice",choices:shuffle([word,...wrongs]),level:"Challenge",
-        hint1:`The word has ${word.length} letters and starts with "${word[0]}"`,
-        explanation:`The scrambled word is "${word}"! ${emoji} Great job unscrambling! ⭐`};
-    },
-    // 4. Find the word that's different
-    function(){
-      const word=pick(SIGHT_WORDS);
-      const different=pick(SIGHT_WORDS.filter(w=>w!==word));
-      const spots=rand(0,3);
-      const list=[word,word,word,word];
-      list[spots]=different;
-      return{teach:`${hero} says: One of these words is not like the others. Look carefully!`,
-        question:`Which word is DIFFERENT from the others?`,
-        visual:`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:center;font-family:Fredoka;font-size:28px;color:#1A1A2E;padding:10px">${list.map((w,i)=>`<div style="padding:12px;background:#f8fafc;border-radius:10px">${w}</div>`).join("")}</div>`,
-        answer:different,type:"choice",choices:shuffle([different,word]),level:"Building Up",
-        hint1:`Look at each word carefully. Three are the same and one is different!`,
-        explanation:`"${different}" is the different word! The others all say "${word}". ${emoji} Eagle eyes! ⭐`};
-    },
-    // 5. How many letters in this word?
-    function(){
-      const word=pick(SIGHT_WORDS);
-      const len=word.length;
-      const wrongs=shuffle([len-1,len+1,len+2].filter(n=>n>0));
-      const isColor=COLOR_WORDS[word];
-      const vis=isColor?`<span class="sight-word-color" style="color:${isColor}">${word}</span>`:`<span class="sight-word-big">${word}</span>`;
-      return{teach:`${hero} says: Count each letter in the word. Point to each one as you count!`,
-        question:`How many letters are in this word?`,
-        visual:vis,
-        answer:len,type:"choice",choices:shuffle([String(len),...wrongs.slice(0,3).map(String)]),level:"Warm-Up",
-        hint1:`Point to each letter and count: ${word.split("").join(" - ")}`,
-        explanation:`"${word}" has ${len} letters! ${emoji} Great counting! ⭐`};
-    },
-    // 6. Match the word to its first letter
-    function(){
-      const word=pick(SIGHT_WORDS);
-      const firstLetter=word[0].toUpperCase();
-      const wrongs=shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").filter(l=>l!==firstLetter)).slice(0,3);
-      const isColor=COLOR_WORDS[word];
-      const vis=isColor?`<span class="sight-word-color" style="color:${isColor}">${word}</span>`:`<span class="sight-word-big">${word}</span>`;
-      return{teach:`${hero} says: Every word starts with a letter. What letter does this word begin with?`,
-        question:`What letter does this word start with?`,
-        visual:vis,
-        answer:firstLetter,type:"choice",choices:shuffle([firstLetter,...wrongs]),level:"Warm-Up",
-        hint1:`Look at the very first letter of the word "${word}"`,
-        explanation:`"${word}" starts with ${firstLetter}! ${emoji} Nice! ⭐`};
-    }
-  ];
-  return pick(G)();
+  const picWords=Object.keys(WORD_IMAGES);
+  const word=pick(picWords);
+  const wrongs=shuffle(picWords.filter(w=>w!==word)).slice(0,3);
+  return{teach:`${hero} says: Look at the picture! Which word matches?`,
+    question:`Which word is this?`,
+    visual:WORD_IMAGES[word],
+    answer:word,type:"choice",choices:shuffle([word,...wrongs]),level:"Warm-Up",
+    hint1:`The word starts with the letter "${word[0].toUpperCase()}"`,
+    explanation:`The answer is "${word}"! ${emoji} Awesome reading! ⭐`};
 }
 
 // ======== KINDERGARTEN MATH ========
@@ -1777,7 +1701,7 @@ function render(){
     <div class="progress-track"><div class="progress-fill" style="width:${(S.qIndex/numQ)*100}%"></div></div>
     <span class="level-badge" style="background:${lc};color:${ltc}">${levelLabel}</span>
     <div class="teach-box"><p>${isMav?"🦸":"📖"} <strong>${isMav?"Hero Tip:":"Learn:"}</strong> ${q.teach}</p></div>
-    <div class="question-box"><p>${q.question}</p>${q.visual?`<div class="visual" style="${isMav?'background:#1A1A2E;color:#FFD700':''}">${q.visual}</div>`:""}</div>
+    <div class="question-box"><p>${q.question}</p>${q.visual?`<div class="visual" style="${isMav?'background:#f0f4ff;color:#1A1A2E;padding:20px':''}">${q.visual}</div>`:""}</div>
     ${inp}${hint}${fb}${nx}
     <div style="text-align:center"><button class="btn-back" onclick="goHome()">← Back to ${isMav?"missions":"topics"}</button></div>
   </div></div>`;
