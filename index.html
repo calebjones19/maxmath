@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Max's Math Playbook</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Inter:wght@400;500;600;700&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#00274C 0%,#0C2340 40%,#0076B6 100%);min-height:100vh;display:flex;justify-content:center;padding:20px;position:relative}
+  body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;z-index:0}
+  .container{max-width:640px;width:100%;position:relative;z-index:1}
+  .card{background:rgba(255,255,255,0.97);border-radius:16px;padding:28px;box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+  .header-bar{background:linear-gradient(135deg,#0076B6,#00274C);border-radius:12px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px;border-bottom:3px solid #FA4616}
+  .header-bar .logo{font-size:32px}
+  .header-bar .title-area{flex:1}
+  .header-bar h2{font-family:'Russo One',sans-serif;color:white;font-size:18px;letter-spacing:.5px}
+  .header-bar .subtitle{color:#B0B7BC;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px}
+  .score-badge{background:linear-gradient(135deg,#FA4616,#ff6b35);color:white;padding:4px 12px;border-radius:20px;font-weight:700;font-size:13px}
+  .hero{background:linear-gradient(135deg,#0C2340,#00274C);border-radius:16px;padding:32px 24px;margin-bottom:24px;border-bottom:4px solid #FA4616;text-align:center;position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(255,203,5,0.15) 0%,transparent 70%);border-radius:50%}
+  .hero h1{font-family:'Russo One',sans-serif;font-size:32px;color:white;margin-bottom:4px}
+  .hero .tagline{color:#FFCB05;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px}
+  .hero .player-name{display:inline-block;background:#FA4616;color:white;font-family:'Russo One',sans-serif;font-size:36px;padding:6px 20px;border-radius:8px;margin:16px 0 8px;letter-spacing:1px}
+  .hero .jersey{color:#B0B7BC;font-size:13px;font-weight:600}
+  .topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+  .topic-btn{background:#f8fafc;border:2px solid #e2e8f0;border-radius:12px;padding:16px 12px;cursor:pointer;text-align:center;transition:all .2s;font-family:'Inter',sans-serif}
+  .topic-btn:hover{border-color:#0076B6;background:#f0f9ff;transform:translateY(-2px)}
+  .topic-btn .icon{font-size:28px;margin-bottom:6px;display:block}
+  .topic-btn .name{font-size:14px;font-weight:700;color:#0C2340}
+  .topic-btn .desc{font-size:11px;color:#64748b;margin-top:2px}
+  .progress-track{height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden;margin-bottom:20px}
+  .progress-fill{height:100%;background:linear-gradient(90deg,#0076B6,#FA4616);border-radius:4px;transition:width .5s}
+  .progress-info{display:flex;justify-content:space-between;font-size:13px;color:#666;margin-bottom:6px;font-weight:500}
+  .level-badge{display:inline-block;color:white;border-radius:6px;padding:5px 14px;font-size:12px;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+  .teach-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fde68a;border-radius:10px;padding:14px;margin-bottom:16px;border-left:4px solid #FFCB05}
+  .teach-box p{font-size:14px;color:#78350f;line-height:1.55}
+  .question-box{background:#f8fafc;border:2px solid #0076B6;border-radius:12px;padding:20px;margin-bottom:16px;position:relative}
+  .question-box::before{content:'\uD83C\uDFC8';position:absolute;top:-12px;right:16px;font-size:20px;background:#f8fafc;padding:0 4px}
+  .question-box p{font-size:17px;color:#1e293b;line-height:1.5;font-weight:500}
+  .visual{background:#0C2340;color:#FFCB05;border-radius:8px;padding:14px;margin-top:12px;font-size:16px;text-align:center;white-space:pre-wrap;font-family:'Courier New',monospace;font-weight:700}
+  .input-row{display:flex;gap:8px;margin-bottom:16px}
+  .input-row input{flex:1;padding:12px 16px;font-size:16px;border-radius:10px;border:2px solid #cbd5e1;outline:none;font-weight:500;font-family:'Inter',sans-serif}
+  .input-row input:focus{border-color:#0076B6;box-shadow:0 0 0 3px rgba(0,118,182,0.15)}
+  .btn-check{padding:12px 24px;font-size:15px;font-weight:700;border-radius:10px;cursor:pointer;background:linear-gradient(135deg,#0076B6,#005a8c);color:white;border:none;text-transform:uppercase;letter-spacing:.5px;transition:transform .1s;font-family:'Inter',sans-serif}
+  .btn-check:hover{transform:scale(1.02)}
+  .yesno-row{display:flex;gap:12px;margin-bottom:16px}
+  .btn-yes,.btn-no{flex:1;padding:14px;font-size:16px;font-weight:700;border-radius:10px;cursor:pointer;transition:transform .1s;font-family:'Inter',sans-serif}
+  .btn-yes{background:#f0fdf4;border:2px solid #4ade80;color:#166534}
+  .btn-no{background:#fef2f2;border:2px solid #f87171;color:#991b1b}
+  .btn-yes:hover,.btn-no:hover{transform:scale(1.02)}
+  .hint-btn{background:rgba(0,118,182,0.06);border:1px dashed #0076B6;border-radius:8px;padding:10px 18px;font-size:14px;color:#0076B6;cursor:pointer;margin-bottom:12px;font-weight:600;transition:background .2s;font-family:'Inter',sans-serif}
+  .hint-btn:hover{background:rgba(0,118,182,0.12)}
+  .feedback{border-radius:10px;padding:16px;margin-top:12px}
+  .feedback.correct{background:#f0fdf4;border:1px solid #86efac;color:#166534}
+  .feedback.hint{background:#eff6ff;border:1px solid #93c5fd;color:#1e40af}
+  .feedback.tryAgain{background:#fff1f2;border:1px solid #fecaca;color:#991b1b}
+  .feedback.showAnswer{background:#fffbeb;border:1px solid #fde68a;color:#854d0e}
+  .feedback p{font-size:15px;line-height:1.55}
+  .btn-next,.btn-start{margin-top:16px;padding:14px;font-size:16px;font-weight:700;border-radius:10px;cursor:pointer;color:white;border:none;display:block;width:100%;text-transform:uppercase;letter-spacing:.5px;transition:transform .1s;font-family:'Russo One',sans-serif}
+  .btn-next{background:linear-gradient(135deg,#FA4616,#ff6b35)}
+  .btn-start{background:linear-gradient(135deg,#FA4616,#ff6b35);font-size:20px;box-shadow:0 4px 16px rgba(250,70,22,0.35)}
+  .btn-next:hover,.btn-start:hover{transform:scale(1.02)}
+  .btn-back{background:none;border:1px solid #cbd5e1;border-radius:8px;padding:8px 16px;font-size:13px;color:#64748b;cursor:pointer;font-weight:600;font-family:'Inter',sans-serif;margin-top:12px}
+  .btn-back:hover{background:#f1f5f9}
+  .streak-bar{display:flex;gap:4px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+  .streak-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;border:2px solid #e2e8f0;color:#cbd5e1;font-weight:700}
+  .streak-dot.correct{background:#4ade80;border-color:#22c55e;color:white}
+  .streak-dot.wrong{background:#f87171;border-color:#ef4444;color:white}
+  .streak-dot.current{border-color:#0076B6;color:#0076B6;background:rgba(0,118,182,0.08)}
+  .result-row{display:flex;align-items:center;gap:10px;padding:8px 0}
+  .result-row+.result-row{border-top:1px solid #f1f5f9}
+  .result-row .icon{font-size:16px;flex-shrink:0}
+  .result-row .q-text{flex:1;font-size:13px;color:#555}
+  .result-row .hints{font-size:11px;color:#94a3b8;font-weight:600}
+  .results-box{background:#f8fafc;border-radius:12px;padding:16px;margin-bottom:20px;text-align:left;max-height:300px;overflow-y:auto}
+  .results-box h3{margin-bottom:10px;font-size:15px;color:#0C2340;font-weight:700}
+  .takeaway{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1px solid #86efac;border-radius:12px;padding:16px;text-align:left;margin-bottom:24px}
+  .takeaway h3{margin-bottom:6px;font-size:14px;color:#166534}
+  .takeaway p{font-size:13px;color:#15803d;line-height:1.6}
+  .result-score{font-family:'Russo One',sans-serif;font-size:56px;margin:12px 0;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .confetti-piece{position:fixed;top:-10px;pointer-events:none;animation:confettiFall 2.5s ease-in forwards}
+  @keyframes confettiFall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+  .choice-btn{padding:12px;font-size:15px;font-weight:600;border-radius:10px;cursor:pointer;border:2px solid #e2e8f0;background:#f8fafc;color:#1e293b;transition:all .15s;font-family:'Inter',sans-serif;text-align:center}
+  .choice-btn:hover{border-color:#0076B6;background:#f0f9ff}
+</style>
+</head>
+<body>
+<div class="container" id="app"></div>
+<script>
+// ============ UTILITIES ============
+function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+function shuffle(a){let b=[...a];for(let i=b.length-1;i>0;i--){const j=rand(0,i);[b[i],b[j]]=[b[j],b[i]]}return b}
+function pick(a){return a[rand(0,a.length-1)]}
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);return b===0?a:gcd(b,a%b)}
+function lcm(a,b){return(a*b)/gcd(a,b)}
+
+// ============ THEME DATA ============
+const SPORTS=[
+  {team:"Lions",emoji:"\uD83C\uDFC8",sport:"football"},
+  {team:"Tigers",emoji:"\u26BE",sport:"baseball"},
+  {team:"Pistons",emoji:"\uD83C\uDFC0",sport:"basketball"},
+  {team:"Red Wings",emoji:"\uD83C\uDFD2",sport:"hockey"},
+  {team:"Wolverines",emoji:"\uD83D\uDC9B",sport:"football"}
+];
+const PLAYERS=["Max","Jahmyr Gibbs","Amon-Ra St. Brown","Aidan Hutchinson","Sam LaPorta","Jared Goff","Penei Sewell","David Montgomery","Carlton Davis","Brian Branch","Jake Bates"];
+const ITEMS=["jerseys","hats","foam fingers","pennants","hot dogs","sodas","bags of popcorn","tickets","trading cards","stickers","wristbands","mini helmets"];
+const VENUES=["Ford Field","Comerica Park","Little Caesars Arena","the Big House","Michigan Stadium","Spartan Stadium"];
+const FOODS=["hot dogs","pretzels","nachos","burgers","slices of pizza","bags of peanuts","cotton candy sticks","ice cream bars"];
+
+// ============ QUESTION GENERATORS ============
+// Each returns {question, answer, type, hint1, hint2, explanation, teach, level, visual?, correctAnswer?, choices?}
+// type: "number" | "yesno" | "choice"
+
+// ======== EQUIVALENT RATIOS (12 templates) ========
+function genRatio(){
+  const G=[
+    // 1. Scale up - find missing
+    function(){
+      const a=rand(2,6),b=rand(2,6),m=rand(2,5);
+      const s=pick(SPORTS),item1=pick(ITEMS),item2=pick(["fans","friends","games","quarters"]);
+      return{teach:"Equivalent ratios have the same relationship. Multiply or divide BOTH parts by the same number!",
+        question:`At a ${s.team} game, the ratio of ${item1} to ${item2} is ${a}:${b}. If there are ${a*m} ${item1}, how many ${item2}?`,
+        answer:b*m,type:"number",level:"Warm-Up",
+        hint1:`The ${item1} went from ${a} to ${a*m}. What did you multiply by?`,
+        hint2:`${a} × ${m} = ${a*m}. Now do the same to ${b}: ${b} × ${m} = ___`,
+        explanation:`Scale factor is ${m} (${a} × ${m} = ${a*m}). So ${item2} = ${b} × ${m} = ${b*m}! ${s.emoji}`};
+    },
+    // 2. Are these equivalent? (yesno)
+    function(){
+      const a=rand(2,5),b=rand(2,5),m=rand(2,4);
+      const eq=rand(0,1)===1;const ra=a*m,rb=eq?b*m:b*m+rand(1,3);
+      return{teach:"To check if two ratios are equivalent, simplify both or cross-multiply!",
+        question:`Are the ratios ${a}:${b} and ${ra}:${rb} equivalent?`,
+        type:"yesno",correctAnswer:eq?"yes":"no",level:"Building Up",
+        hint1:`Try dividing both parts of ${ra}:${rb} by ${m}. What do you get?`,
+        hint2:`${ra} ÷ ${m} = ${ra/m} and ${rb} ÷ ${m} = ${(rb/m).toFixed(1)}. Does that match ${a}:${b}?`,
+        explanation:eq?`Yes! Both simplify to ${a}:${b}. ✅`:`No! ${ra}:${rb} doesn't simplify to ${a}:${b}. ❌`};
+    },
+    // 3. Unit rate
+    function(){
+      const rate=rand(3,12),units=rand(2,5),target=rand(6,12);
+      const p=pick(PLAYERS),thing=pick(["yards","points","rebounds","assists","saves"]);
+      return{teach:"A unit rate tells you how much per ONE. Divide to find it, then multiply to scale!",
+        question:`${p} gets ${rate*units} ${thing} in ${units} games. At that rate, how many ${thing} in ${target} games?`,
+        answer:rate*target,type:"number",level:"Challenge",
+        hint1:`First find the ${thing} per game: ${rate*units} ÷ ${units} = ?`,
+        hint2:`${rate*units} ÷ ${units} = ${rate} per game. Now: ${rate} × ${target} = ___`,
+        explanation:`Unit rate: ${rate} per game. For ${target} games: ${rate} × ${target} = ${rate*target}! 🔥`};
+    },
+    // 4. Simplify a ratio
+    function(){
+      const g=rand(2,6),a=rand(2,8),b=rand(2,8);
+      const big_a=a*g,big_b=b*g;
+      return{teach:"To simplify a ratio, divide both parts by their greatest common factor (GCF)!",
+        question:`Simplify the ratio ${big_a}:${big_b}. What is the first number in the simplified ratio?`,
+        answer:a,type:"number",level:"Warm-Up",
+        hint1:`What is the GCF of ${big_a} and ${big_b}? Try dividing both by small numbers.`,
+        hint2:`The GCF is ${g}. Divide both: ${big_a} ÷ ${g} = ___ and ${big_b} ÷ ${g} = ${b}`,
+        explanation:`${big_a} ÷ ${g} = ${a} and ${big_b} ÷ ${g} = ${b}. Simplified ratio: ${a}:${b}! ✅`};
+    },
+    // 5. Ratio table - find missing entry
+    function(){
+      const a=rand(2,5),b=rand(2,5);
+      const m1=rand(2,4),m2=rand(m1+1,6);
+      const s=pick(SPORTS),f=pick(FOODS);
+      return{teach:"In a ratio table, every column is the original ratio multiplied by the same number!",
+        question:`A ${s.team} food stand sells ${a} ${f} for every ${b} drinks. If they sold ${a*m2} ${f}, how many drinks did they sell?`,
+        answer:b*m2,type:"number",level:"Warm-Up",
+        visual:`${f.padEnd(12)} |  ${a}  |  ${a*m1}  |  ${a*m2}\ndrinks${" ".repeat(6)} |  ${b}  |  ${b*m1}  |  ???`,
+        hint1:`Look at the pattern: ${a} → ${a*m1} → ${a*m2}. The ${f} went up by a factor of ${m2}.`,
+        hint2:`${a} × ${m2} = ${a*m2}. So drinks = ${b} × ${m2} = ___`,
+        explanation:`Scale factor is ${m2}. Drinks = ${b} × ${m2} = ${b*m2}! The table keeps the same ratio. ✅`};
+    },
+    // 6. Compare unit rates
+    function(){
+      const r1=rand(4,10),d1=rand(2,4),r2=rand(4,10),d2=rand(2,4);
+      const ur1=r1/d1,ur2=r2/d2;
+      const p1=pick(PLAYERS),p2=pick(PLAYERS.filter(p=>p!==p1));
+      const thing=pick(["points","yards","catches","goals"]);
+      const winner=ur1>ur2?p1:ur1<ur2?p2:"tied";
+      const betterRate=Math.max(ur1,ur2);
+      const answerName=ur1>=ur2?p1:p2;
+      return{teach:"To compare rates, find the unit rate for each (divide to get 'per 1'), then compare!",
+        question:`${p1} scored ${r1} ${thing} in ${d1} games. ${p2} scored ${r2} ${thing} in ${d2} games. Who has the better per-game rate? (Enter their first name)`,
+        answer:answerName,type:"choice",choices:[p1,p2],level:"Challenge",
+        hint1:`Find each unit rate: ${p1}: ${r1} ÷ ${d1} = ? and ${p2}: ${r2} ÷ ${d2} = ?`,
+        hint2:`${p1}: ${ur1.toFixed(1)} per game. ${p2}: ${ur2.toFixed(1)} per game. Who's higher?`,
+        explanation:`${p1}: ${ur1.toFixed(1)}/game. ${p2}: ${ur2.toFixed(1)}/game. ${answerName} has the better rate! 🏆`};
+    },
+    // 7. Scale down ratio
+    function(){
+      const m=rand(2,6),a=rand(2,8),b=rand(2,8);
+      const big_a=a*m,big_b=b*m;
+      const s=pick(SPORTS);
+      return{teach:"Scaling DOWN a ratio means dividing both parts by the same number!",
+        question:`The ${s.team} use ${big_a} ${pick(ITEMS)} for every ${big_b} fans. Scaled down by ${m}, how many fans per group?`,
+        answer:b,type:"number",level:"Building Up",
+        hint1:`Divide both parts by ${m}: ${big_a} ÷ ${m} and ${big_b} ÷ ${m}`,
+        hint2:`${big_b} ÷ ${m} = ___`,
+        explanation:`${big_b} ÷ ${m} = ${b}. Scaled ratio: ${a}:${b}! ${s.emoji}`};
+    },
+    // 8. Part-to-whole
+    function(){
+      const boys=rand(3,10),girls=rand(3,10),total=boys+girls;
+      const s=pick(SPORTS);
+      return{teach:"A part-to-whole ratio compares one piece to the total. The total = sum of all parts!",
+        question:`At a ${s.team} watch party, there are ${boys} boys and ${girls} girls. What is the total number of kids?`,
+        answer:total,type:"number",level:"Warm-Up",
+        hint1:`Part-to-whole: add both parts to get the whole!`,
+        hint2:`${boys} + ${girls} = ___`,
+        explanation:`${boys} + ${girls} = ${total} total kids. The ratio of boys to total is ${boys}:${total}. ✅`};
+    },
+    // 9. Ratio word problem with total
+    function(){
+      const a=rand(2,5),b=rand(2,5),total=(a+b)*rand(2,5);
+      const m=total/(a+b);
+      const item1=pick(FOODS),item2=pick(FOODS.filter(f=>f!==item1));
+      return{teach:"When you know a total and a ratio, divide the total by the sum of the ratio parts to find the multiplier!",
+        question:`${pick(VENUES)} sold ${item1} and ${item2} in a ratio of ${a}:${b}. They sold ${total} total items. How many ${item1}?`,
+        answer:a*m,type:"number",level:"Challenge",
+        hint1:`First add the ratio parts: ${a} + ${b} = ${a+b}. Then divide the total by that.`,
+        hint2:`${total} ÷ ${a+b} = ${m}. Now multiply: ${a} × ${m} = ___`,
+        explanation:`Multiplier = ${total} ÷ ${a+b} = ${m}. ${item1} = ${a} × ${m} = ${a*m}! 🔥`};
+    },
+    // 10. Multiple choice - which ratio is equivalent
+    function(){
+      const a=rand(2,5),b=rand(2,5),m=rand(2,4);
+      const correct=`${a*m}:${b*m}`;
+      const wrong1=`${a*m}:${b*m+rand(1,3)}`;
+      const wrong2=`${a*m+rand(1,2)}:${b*m}`;
+      const wrong3=`${a+m}:${b+m}`;
+      const choices=shuffle([correct,wrong1,wrong2,wrong3]);
+      return{teach:"Equivalent ratios are made by multiplying (or dividing) BOTH parts by the same number!",
+        question:`Which ratio is equivalent to ${a}:${b}?`,
+        answer:correct,type:"choice",choices:choices,level:"Building Up",
+        hint1:`Try multiplying both ${a} and ${b} by the same number. What do you get?`,
+        hint2:`${a} × ${m} = ${a*m} and ${b} × ${m} = ${b*m}. Look for ${a*m}:${b*m} in the choices.`,
+        explanation:`${a} × ${m} = ${a*m}, ${b} × ${m} = ${b*m}. So ${correct} is equivalent! ✅`};
+    },
+    // 11. Missing value cross-multiply
+    function(){
+      const a=rand(2,8),b=rand(2,8),m=rand(2,5);
+      const s=pick(SPORTS);
+      return{teach:"Cross-multiplication: if a/b = c/d, then a×d = b×c. Use this to solve for unknowns!",
+        question:`If ${a}/${b} = ${a*m}/?, what number goes in the ?`,
+        answer:b*m,type:"number",level:"Building Up",
+        hint1:`What was ${a} multiplied by to get ${a*m}?`,
+        hint2:`${a} × ${m} = ${a*m}. So multiply the bottom too: ${b} × ${m} = ___`,
+        explanation:`Both parts × ${m}: ${a}×${m}=${a*m} and ${b}×${m}=${b*m}. The answer is ${b*m}! ✅`};
+    },
+    // 12. Ratio from a scenario
+    function(){
+      const wins=rand(3,10),losses=rand(2,8);
+      const s=pick(SPORTS);
+      const g=gcd(wins,losses);
+      return{teach:"To write a ratio from a real situation, identify the two quantities and simplify if possible!",
+        question:`The ${s.team} have ${wins} wins and ${losses} losses. What is the simplified win-to-loss ratio? (Enter the wins part)`,
+        answer:wins/g,type:"number",level:"Warm-Up",
+        hint1:`The ratio is ${wins}:${losses}. Can you divide both by a common factor?`,
+        hint2:`GCF of ${wins} and ${losses} is ${g}. So ${wins} ÷ ${g} = ___`,
+        explanation:`${wins}:${losses} simplifies to ${wins/g}:${losses/g} (divided both by ${g})! ${s.emoji}`};
+    }
+  ];
+  return pick(G)();
+}
+
+// ======== FRACTIONS (12 templates) ========
+function genFraction(){
+  const G=[
+    // 1. Add same denominator
+    function(){
+      const d=pick([4,6,8,10,12]);const a=rand(1,d-2);const b=rand(1,d-a-1);const sum=a+b;
+      return{teach:"Same denominator? Just add the numerators and keep the bottom the same!",
+        question:`${a}/${d} + ${b}/${d} = ?/${d}. What's the numerator?`,
+        answer:sum,type:"number",level:"Warm-Up",
+        hint1:`Same denominators — just add the tops!`,
+        hint2:`${a} + ${b} = ___`,
+        explanation:`${a}/${d} + ${b}/${d} = ${sum}/${d}. Same denominator = easy addition! 🍕`};
+    },
+    // 2. Subtract same denominator
+    function(){
+      const d=pick([5,6,7,8,9,10]);const b=rand(1,d-2);const a=rand(b+1,d-1);const diff=a-b;
+      const p=pick(PLAYERS);
+      return{teach:"Subtracting fractions with the same denominator: subtract numerators, keep the denominator!",
+        question:`${p} ran ${a}/${d} of a mile, then walked back ${b}/${d} of a mile. Net distance? (Enter numerator, denominator is ${d})`,
+        answer:diff,type:"number",level:"Warm-Up",
+        hint1:`Same denominator, so just subtract the numerators.`,
+        hint2:`${a} - ${b} = ___`,
+        explanation:`${a}/${d} - ${b}/${d} = ${diff}/${d}. Subtract the tops, keep the bottom! ✅`};
+    },
+    // 3. Add different denominator
+    function(){
+      const d1=pick([2,3,4,5]);const d2=pick([2,3,4,5,6].filter(x=>x!==d1));const L=lcm(d1,d2);
+      const n1=rand(1,d1-1);const n2=rand(1,d2-1);
+      const ans=(n1*(L/d1))+(n2*(L/d2));
+      return{teach:"Different denominators? Find the LCD first, convert both fractions, then add!",
+        question:`${n1}/${d1} + ${n2}/${d2} = ?/${L}. What's the numerator?`,
+        answer:ans,type:"number",level:"Building Up",
+        hint1:`LCD of ${d1} and ${d2} is ${L}. Convert: ${n1}/${d1} = ?/${L}`,
+        hint2:`${n1}×${L/d1}=${n1*(L/d1)} and ${n2}×${L/d2}=${n2*(L/d2)}. Add those!`,
+        explanation:`${n1*(L/d1)}/${L} + ${n2*(L/d2)}/${L} = ${ans}/${L}. Find LCD → convert → add! ✅`};
+    },
+    // 4. Multiply fractions
+    function(){
+      const a=rand(2,6),b=rand(2,6);
+      return{teach:"Multiply fractions: top × top and bottom × bottom. No common denominator needed!",
+        question:`${a}/7 × ${b}/3 = ?/21. What's the numerator?`,
+        answer:a*b,type:"number",level:"Building Up",
+        hint1:"Multiply straight across: top × top, bottom × bottom.",
+        hint2:`${a} × ${b} = ___`,
+        explanation:`${a} × ${b} = ${a*b}. So the answer is ${a*b}/21! ✅`};
+    },
+    // 5. Compare fractions
+    function(){
+      const d1=pick([3,4,5,6,8]);const d2=pick([3,4,5,6,8].filter(x=>x!==d1));
+      const n1=rand(1,d1-1);const n2=rand(1,d2-1);
+      const v1=n1/d1,v2=n2/d2;
+      const bigger=v1>v2?`${n1}/${d1}`:v1<v2?`${n2}/${d2}`:`${n1}/${d1}`;
+      const choices=[`${n1}/${d1}`,`${n2}/${d2}`];
+      return{teach:"To compare fractions, find a common denominator or convert both to decimals!",
+        question:`Which is larger: ${n1}/${d1} or ${n2}/${d2}?`,
+        answer:bigger,type:"choice",choices:choices,level:"Building Up",
+        hint1:`Convert both to decimals: ${n1}÷${d1} = ${v1.toFixed(3)} and ${n2}÷${d2} = ${v2.toFixed(3)}`,
+        hint2:`${v1.toFixed(3)} vs ${v2.toFixed(3)} — which is bigger?`,
+        explanation:`${n1}/${d1} = ${v1.toFixed(3)} and ${n2}/${d2} = ${v2.toFixed(3)}. ${bigger} is larger! ✅`};
+    },
+    // 6. Mixed number to improper
+    function(){
+      const whole=rand(1,5),num=rand(1,5),den=num+rand(1,4);
+      const imp=whole*den+num;
+      return{teach:"Mixed → improper: multiply the whole number by the denominator, add the numerator!",
+        question:`Convert ${whole} ${num}/${den} to an improper fraction. What's the numerator? (Denominator stays ${den})`,
+        answer:imp,type:"number",level:"Building Up",
+        hint1:`Multiply whole × denominator: ${whole} × ${den} = ?`,
+        hint2:`${whole} × ${den} = ${whole*den}. Add the numerator: ${whole*den} + ${num} = ___`,
+        explanation:`${whole} × ${den} + ${num} = ${imp}. So ${whole} ${num}/${den} = ${imp}/${den}! ✅`};
+    },
+    // 7. Improper to mixed
+    function(){
+      const den=pick([3,4,5,6,7,8]);const whole=rand(1,5);const num=rand(1,den-1);
+      const imp=whole*den+num;
+      return{teach:"Improper → mixed: divide the numerator by the denominator. Quotient = whole, remainder = new numerator!",
+        question:`Convert ${imp}/${den} to a mixed number. What is the whole number part?`,
+        answer:whole,type:"number",level:"Warm-Up",
+        hint1:`Divide: ${imp} ÷ ${den} = ?`,
+        hint2:`${imp} ÷ ${den} = ${whole} remainder ${num}. The whole part is ___`,
+        explanation:`${imp} ÷ ${den} = ${whole} R${num}. So ${imp}/${den} = ${whole} ${num}/${den}! ✅`};
+    },
+    // 8. Fraction of a whole number
+    function(){
+      const den=pick([2,3,4,5,6]);const num=rand(1,den-1);
+      const whole=den*rand(2,6);const ans=whole*num/den;
+      const item=pick(ITEMS);const s=pick(SPORTS);
+      return{teach:"To find a fraction of a number: multiply the number by the numerator, then divide by the denominator!",
+        question:`The ${s.team} have ${whole} ${item}. Max gets ${num}/${den} of them. How many does Max get?`,
+        answer:ans,type:"number",level:"Building Up",
+        hint1:`${num}/${den} of ${whole} means: ${whole} × ${num} ÷ ${den}`,
+        hint2:`${whole} × ${num} = ${whole*num}. Then ÷ ${den} = ___`,
+        explanation:`${whole} × ${num}/${den} = ${whole*num}/${den} = ${ans}! ${s.emoji}`};
+    },
+    // 9. Simplify a fraction
+    function(){
+      const g=rand(2,6),n=rand(2,7),d=rand(n+1,10);
+      const big_n=n*g,big_d=d*g;
+      return{teach:"To simplify, find the GCF of the numerator and denominator, then divide both!",
+        question:`Simplify ${big_n}/${big_d}. What's the new numerator?`,
+        answer:n,type:"number",level:"Warm-Up",
+        hint1:`What number divides evenly into both ${big_n} and ${big_d}?`,
+        hint2:`GCF is ${g}. Divide: ${big_n} ÷ ${g} = ___`,
+        explanation:`${big_n} ÷ ${g} = ${n}, ${big_d} ÷ ${g} = ${d}. Simplified: ${n}/${d}! ✅`};
+    },
+    // 10. Divide fractions
+    function(){
+      const a=rand(1,5),b=rand(2,6),c=rand(1,5),d=rand(2,6);
+      const num=a*d,den=b*c;const g2=gcd(num,den);
+      return{teach:"To divide fractions: KEEP the first, CHANGE to multiply, FLIP the second! (Keep-Change-Flip)",
+        question:`${a}/${b} ÷ ${c}/${d}. Using Keep-Change-Flip, what numerator do you get? (Before simplifying, denominator would be ${den})`,
+        answer:num,type:"number",level:"Challenge",
+        hint1:`Keep ${a}/${b}, change ÷ to ×, flip ${c}/${d} to get ${d}/${c}. Now multiply!`,
+        hint2:`${a} × ${d} = ___`,
+        explanation:`${a}/${b} ÷ ${c}/${d} = ${a}/${b} × ${d}/${c} = ${num}/${den}. Keep-Change-Flip! 🔥`};
+    },
+    // 11. Equivalent fraction
+    function(){
+      const n=rand(1,5),d=rand(n+1,8),m=rand(2,5);
+      return{teach:"Equivalent fractions: multiply (or divide) the numerator AND denominator by the same number!",
+        question:`Find the equivalent fraction: ${n}/${d} = ?/${d*m}`,
+        answer:n*m,type:"number",level:"Warm-Up",
+        hint1:`The denominator went from ${d} to ${d*m}. What was it multiplied by?`,
+        hint2:`${d} × ${m} = ${d*m}. Do the same to the top: ${n} × ${m} = ___`,
+        explanation:`Multiply both by ${m}: ${n*m}/${d*m} is equivalent to ${n}/${d}! ✅`};
+    },
+    // 12. Subtract different denominator
+    function(){
+      const d1=pick([2,3,4,5]);const d2=pick([2,3,4,6].filter(x=>x!==d1));const L=lcm(d1,d2);
+      const n1=rand(Math.ceil(d1/2),d1-1);const n2=rand(1,Math.floor(d2/2));
+      const cn1=n1*(L/d1),cn2=n2*(L/d2);
+      if(cn1<=cn2) return G[2](); // fallback
+      const ans=cn1-cn2;
+      return{teach:"Subtract fractions with different denominators: find LCD, convert, then subtract numerators!",
+        question:`${n1}/${d1} - ${n2}/${d2} = ?/${L}. What's the numerator?`,
+        answer:ans,type:"number",level:"Challenge",
+        hint1:`LCD of ${d1} and ${d2} is ${L}. Convert both fractions.`,
+        hint2:`${cn1}/${L} - ${cn2}/${L} = ___/${L}`,
+        explanation:`${cn1}/${L} - ${cn2}/${L} = ${ans}/${L}. Find LCD → convert → subtract! ✅`};
+    }
+  ];
+  return pick(G)();
+}
+
+// ======== DECIMALS & PERCENTS (12 templates) ========
+function genDecimal(){
+  const G=[
+    // 1. Percent discount
+    function(){
+      const pct=pick([10,15,20,25,30,40,50]);const price=pick([20,30,40,50,60,80,100]);
+      const disc=price*pct/100;const ans=price-disc;
+      const item=pick(["Lions jersey","Tigers hat","Pistons hoodie","Red Wings scarf","Michigan pennant","foam finger"]);
+      return{teach:"To find a percentage of a number, convert percent to decimal and multiply!",
+        question:`A ${item} costs $${price} and is ${pct}% off. What's the sale price?`,
+        answer:ans,type:"number",level:"Building Up",
+        hint1:`Find ${pct}% of $${price}: convert ${pct}% to ${pct/100}`,
+        hint2:`${pct/100} × ${price} = $${disc} off. Now subtract: $${price} - $${disc} = ___`,
+        explanation:`${pct}% off = $${disc}. Sale: $${price} - $${disc} = $${ans}! 💰`};
+    },
+    // 2. Decimal to percent
+    function(){
+      const dec=pick([0.25,0.5,0.75,0.1,0.2,0.3,0.4,0.6,0.8,0.05,0.15,0.35,0.45,0.55,0.65,0.85,0.95]);
+      const pct=dec*100;
+      return{teach:"Decimal → percent: multiply by 100 (move decimal 2 places right)!",
+        question:`Convert ${dec} to a percentage.`,
+        answer:pct,type:"number",level:"Warm-Up",
+        hint1:"Multiply by 100 to go from decimal to percent.",
+        hint2:`${dec} × 100 = ___`,
+        explanation:`${dec} × 100 = ${pct}%. Move the decimal 2 places right! ✅`};
+    },
+    // 3. What percent is X of Y
+    function(){
+      const made=rand(3,9),total=rand(10,20);const pct=Math.round(made/total*100);
+      const p=pick(PLAYERS);
+      return{teach:"To find a percentage: divide the part by the whole, then multiply by 100.",
+        question:`${p} made ${made} of ${total} free throws. What percentage? (Round to nearest whole)`,
+        answer:pct,type:"number",level:"Challenge",
+        hint1:`Divide: ${made} ÷ ${total} = ${(made/total).toFixed(3)}`,
+        hint2:`${(made/total).toFixed(3)} × 100 ≈ ___`,
+        explanation:`${made} ÷ ${total} ≈ ${(made/total).toFixed(3)} × 100 = ${pct}%! 🏀`};
+    },
+    // 4. Percent of a number
+    function(){
+      const pct=pick([10,20,25,50,75]);const num=pick([40,60,80,100,120,200,300]);
+      const ans=num*pct/100;
+      const s=pick(SPORTS);
+      return{teach:"X% of Y = (X/100) × Y. Convert the percent to a decimal first!",
+        question:`What is ${pct}% of ${num}?`,
+        answer:ans,type:"number",level:"Warm-Up",
+        hint1:`Convert: ${pct}% = ${pct/100}. Now multiply by ${num}.`,
+        hint2:`${pct/100} × ${num} = ___`,
+        explanation:`${pct}% of ${num} = ${pct/100} × ${num} = ${ans}! ✅`};
+    },
+    // 5. Tip calculation
+    function(){
+      const bill=pick([20,25,30,35,40,45,50,60]);const tipPct=pick([10,15,20]);
+      const tip=bill*tipPct/100;const total=bill+tip;
+      const venue=pick(VENUES);
+      return{teach:"To calculate a tip: find the percentage of the bill, then add it to the original amount!",
+        question:`Max's family spent $${bill} on food near ${venue}. They leave a ${tipPct}% tip. What's the total bill?`,
+        answer:total,type:"number",level:"Building Up",
+        hint1:`Tip = ${tipPct}% of $${bill}. Convert: ${tipPct/100} × ${bill} = ?`,
+        hint2:`Tip = $${tip}. Total = $${bill} + $${tip} = ___`,
+        explanation:`Tip: $${tip}. Total: $${bill} + $${tip} = $${total}! 🍔`};
+    },
+    // 6. Decimal addition
+    function(){
+      const a_w=rand(1,9),a_d=rand(1,9),b_w=rand(1,9),b_d=rand(1,9);
+      const a=a_w+a_d/10,b=b_w+b_d/10;
+      const sum=Math.round((a+b)*10)/10;
+      return{teach:"Line up the decimal points when adding decimals, then add normally!",
+        question:`${a.toFixed(1)} + ${b.toFixed(1)} = ?`,
+        answer:sum,type:"number",level:"Warm-Up",
+        hint1:"Line up the decimals and add column by column.",
+        hint2:`Start with tenths: ${a_d} + ${b_d} = ${a_d+b_d}. Then the ones...`,
+        explanation:`${a.toFixed(1)} + ${b.toFixed(1)} = ${sum}! Line up those decimals! ✅`};
+    },
+    // 7. Percent increase
+    function(){
+      const orig=pick([50,80,100,120,150,200]);const pctInc=pick([10,20,25,50]);
+      const inc=orig*pctInc/100;const ans=orig+inc;
+      const s=pick(SPORTS),item=pick(["ticket prices","jersey sales","attendance"]);
+      return{teach:"Percent increase: find the percent of the original, then ADD it to the original!",
+        question:`${s.team} ${item} went up ${pctInc}% from ${orig}. What's the new number?`,
+        answer:ans,type:"number",level:"Challenge",
+        hint1:`${pctInc}% of ${orig} = ${pctInc/100} × ${orig} = ?`,
+        hint2:`Increase = ${inc}. New amount: ${orig} + ${inc} = ___`,
+        explanation:`${pctInc}% of ${orig} = ${inc}. New: ${orig} + ${inc} = ${ans}! ${s.emoji}`};
+    },
+    // 8. Percent to decimal
+    function(){
+      const pct=pick([5,12,15,25,33,45,60,72,85,90]);
+      const dec=pct/100;
+      return{teach:"Percent → decimal: divide by 100 (move decimal 2 places left)!",
+        question:`Convert ${pct}% to a decimal. (Enter like 0.25)`,
+        answer:dec,type:"number",level:"Warm-Up",
+        hint1:"Divide the percent by 100.",
+        hint2:`${pct} ÷ 100 = ___`,
+        explanation:`${pct}% = ${dec}. Move decimal 2 places left! ✅`};
+    },
+    // 9. Fraction to percent
+    function(){
+      const pairs=[[1,4,25],[1,2,50],[3,4,75],[1,5,20],[2,5,40],[3,5,60],[1,8,12.5],[3,8,37.5],[1,10,10],[3,10,30]];
+      const [n,d,pct]=pick(pairs);
+      return{teach:"Fraction → percent: divide the numerator by denominator, then multiply by 100!",
+        question:`Convert ${n}/${d} to a percent.`,
+        answer:pct,type:"number",level:"Building Up",
+        hint1:`Divide: ${n} ÷ ${d} = ${(n/d).toFixed(3)}`,
+        hint2:`${(n/d).toFixed(3)} × 100 = ___`,
+        explanation:`${n}/${d} = ${(n/d).toFixed(3)} = ${pct}%! ✅`};
+    },
+    // 10. Percent decrease
+    function(){
+      const orig=pick([60,80,100,120,150,200,250]);const pctDec=pick([10,20,25,30,50]);
+      const dec=orig*pctDec/100;const ans=orig-dec;
+      const s=pick(SPORTS);
+      return{teach:"Percent decrease: find the percent of the original, then SUBTRACT it!",
+        question:`${s.team} attendance dropped ${pctDec}% from ${orig}. What's the new attendance?`,
+        answer:ans,type:"number",level:"Challenge",
+        hint1:`${pctDec}% of ${orig} = ?`,
+        hint2:`Drop = ${dec}. New: ${orig} - ${dec} = ___`,
+        explanation:`${pctDec}% of ${orig} = ${dec}. New attendance: ${ans}! ${s.emoji}`};
+    },
+    // 11. Compare decimal and percent
+    function(){
+      const dec=pick([0.3,0.45,0.6,0.7,0.85]);const pct=pick([25,35,50,55,65,75,80,90]);
+      const bigger=dec*100>pct?`${dec}`:`${pct}%`;
+      return{teach:"To compare decimals and percents, convert them to the same form first!",
+        question:`Which is greater: ${dec} or ${pct}%?`,
+        answer:bigger,type:"choice",choices:[`${dec}`,`${pct}%`],level:"Building Up",
+        hint1:`Convert ${dec} to a percent: ${dec} × 100 = ${dec*100}%`,
+        hint2:`Now compare: ${dec*100}% vs ${pct}%`,
+        explanation:`${dec} = ${dec*100}%. Since ${dec*100}% vs ${pct}%, ${bigger} is greater! ✅`};
+    },
+    // 12. Decimal multiplication
+    function(){
+      const a=rand(2,9),b=rand(2,9);const ans=a*b;
+      return{teach:"Multiply as whole numbers, then count total decimal places and put the decimal back!",
+        question:`${(a/10).toFixed(1)} × ${b} = ?`,
+        answer:a*b/10,type:"number",level:"Building Up",
+        hint1:`Ignore the decimal: ${a} × ${b} = ${ans}. Then add back 1 decimal place.`,
+        hint2:`${ans} with 1 decimal place = ___`,
+        explanation:`${a/10} × ${b} = ${a*b/10}. Multiply, then place the decimal! ✅`};
+    }
+  ];
+  return pick(G)();
+}
+
+// ======== INTEGERS (12 templates) ========
+function genInteger(){
+  const G=[
+    // 1. Add neg + pos
+    function(){
+      const a=rand(-12,-1),b=rand(1,12);const ans=a+b;
+      return{teach:"Neg + pos: find the difference, use the sign of the bigger absolute value!",
+        question:`What is ${a} + ${b}?`,
+        answer:ans,type:"number",level:"Warm-Up",
+        hint1:`Start at ${a} on the number line, move ${b} right.`,
+        hint2:`|${Math.abs(a)}| vs |${b}|. Difference = ${Math.abs(ans)}. Sign of the bigger: ${ans>=0?"+":"-"}`,
+        explanation:`${a} + ${b} = ${ans}. Number line: start at ${a}, go ${b} right! ✅`};
+    },
+    // 2. Add two negatives
+    function(){
+      const a=rand(-12,-1),b=rand(-12,-1);const ans=a+b;
+      const s=pick(SPORTS);
+      return{teach:"Two negatives: add the absolute values and keep the negative sign!",
+        question:`The ${s.team} lost ${Math.abs(a)} yards, then lost ${Math.abs(b)} more. Total yardage? (Use negative)`,
+        answer:ans,type:"number",level:"Building Up",
+        hint1:"Both losses! Add the amounts and keep negative.",
+        hint2:`${Math.abs(a)} + ${Math.abs(b)} = ${Math.abs(ans)}. With negative: ___`,
+        explanation:`-(${Math.abs(a)} + ${Math.abs(b)}) = ${ans} yards. ${s.emoji}`};
+    },
+    // 3. Absolute value
+    function(){
+      const a=rand(-15,15);const ans=Math.abs(a);
+      return{teach:"Absolute value = distance from zero. Always positive (or zero)!",
+        question:`What is |${a}|?`,
+        answer:ans,type:"number",level:"Warm-Up",
+        hint1:"How far is the number from 0 on the number line?",
+        hint2:`Distance is always positive. |${a}| = ___`,
+        explanation:`|${a}| = ${ans}. It's ${ans} spaces from zero! ✅`};
+    },
+    // 4. Subtract integers (pos - neg)
+    function(){
+      const a=rand(1,10),b=rand(1,10);const ans=a+b;
+      return{teach:"Subtracting a negative = adding! a - (-b) = a + b",
+        question:`What is ${a} - (-${b})?`,
+        answer:ans,type:"number",level:"Building Up",
+        hint1:"Subtracting a negative is the same as adding!",
+        hint2:`${a} - (-${b}) = ${a} + ${b} = ___`,
+        explanation:`${a} - (-${b}) = ${a} + ${b} = ${ans}. Two negatives make a positive! ✅`};
+    },
+    // 5. Multiply pos × neg
+    function(){
+      const a=rand(2,8),b=rand(-8,-2);const ans=a*b;
+      return{teach:"Positive × negative = negative. Different signs → negative answer!",
+        question:`What is ${a} × ${b}?`,
+        answer:ans,type:"number",level:"Building Up",
+        hint1:"Multiply the numbers, then determine the sign. Different signs = ?",
+        hint2:`${a} × ${Math.abs(b)} = ${a*Math.abs(b)}. Different signs → ___`,
+        explanation:`${a} × ${b} = ${ans}. Positive × negative = negative! ✅`};
+    },
+    // 6. Multiply neg × neg
+    function(){
+      const a=rand(-8,-2),b=rand(-8,-2);const ans=a*b;
+      return{teach:"Negative × negative = positive! Two negatives cancel out when multiplying!",
+        question:`What is (${a}) × (${b})?`,
+        answer:ans,type:"number",level:"Challenge",
+        hint1:"What's the product of the absolute values? Then figure out the sign.",
+        hint2:`${Math.abs(a)} × ${Math.abs(b)} = ${ans}. Two negatives → ___`,
+        explanation:`(${a}) × (${b}) = +${ans}. Negative × negative = positive! 🔥`};
+    },
+    // 7. Order integers
+    function(){
+      const nums=Array.from({length:4},()=>rand(-15,15));
+      const sorted=[...nums].sort((a,b)=>a-b);
+      return{teach:"To order integers, remember: on a number line, left is smaller, right is bigger!",
+        question:`Which is the smallest number: ${nums.join(", ")}?`,
+        answer:sorted[0],type:"number",level:"Warm-Up",
+        hint1:"Negative numbers with bigger absolute values are SMALLER (more left on number line).",
+        hint2:`Put them in order: ${sorted.join(", ")}. The first one is ___`,
+        explanation:`In order: ${sorted.join(" < ")}. The smallest is ${sorted[0]}! ✅`};
+    },
+    // 8. Temperature change
+    function(){
+      const start=rand(-10,5),change=rand(5,20);const end=start+change;
+      return{teach:"Temperature rising = adding a positive. Temperature dropping = adding a negative!",
+        question:`The temperature at kickoff was ${start}°F. It rose ${change}°F by halftime. What's the halftime temperature?`,
+        answer:end,type:"number",level:"Warm-Up",
+        hint1:`Start: ${start}°F. Add ${change}°F.`,
+        hint2:`${start} + ${change} = ___`,
+        explanation:`${start} + ${change} = ${end}°F. Getting warmer! 🌡️`};
+    },
+    // 9. Temperature drop
+    function(){
+      const start=rand(10,30),drop=rand(15,40);const end=start-drop;
+      return{teach:"When temperature drops below zero, the result is negative!",
+        question:`It was ${start}°F at the ${pick(SPORTS).team} game. Temperature dropped ${drop}°F overnight. What's the new temperature?`,
+        answer:end,type:"number",level:"Building Up",
+        hint1:`${start} - ${drop} = ?`,
+        hint2:`When you subtract more than you have, you go negative: ${start} - ${drop} = ___`,
+        explanation:`${start} - ${drop} = ${end}°F. Brr — below zero! ❄️`};
+    },
+    // 10. Compare integers
+    function(){
+      const a=rand(-10,10),b=rand(-10,10);
+      while(a===b) return G[7]();
+      const bigger=a>b?a:b;
+      return{teach:"On a number line, the number farther RIGHT is always greater!",
+        question:`Which is greater: ${a} or ${b}?`,
+        answer:String(bigger),type:"choice",choices:[String(a),String(b)],level:"Warm-Up",
+        hint1:"Think about where each number sits on the number line.",
+        hint2:`${a} is ${a>0?"right":"left"} of zero. ${b} is ${b>0?"right":"left"} of zero.`,
+        explanation:`${bigger} > ${a===bigger?b:a}. Farther right on the number line = greater! ✅`};
+    },
+    // 11. Subtract pos - pos going negative
+    function(){
+      const a=rand(2,8),b=rand(a+1,15);const ans=a-b;
+      const p=pick(PLAYERS);
+      return{teach:"When you subtract a bigger number from a smaller one, the result is negative!",
+        question:`${p} had ${a} points and lost ${b}. What's the score now?`,
+        answer:ans,type:"number",level:"Building Up",
+        hint1:`${a} - ${b} = ? (It'll be negative since ${b} > ${a})`,
+        hint2:`How many more is ${b} than ${a}? That's how far below zero: ___`,
+        explanation:`${a} - ${b} = ${ans}. Below zero! ⬇️`};
+    },
+    // 12. Integer elevator problem
+    function(){
+      const start=rand(-3,5);const moves=[rand(-5,-1),rand(1,6),rand(-4,-1)];
+      const ans=start+moves[0]+moves[1]+moves[2];
+      const dirs=moves.map(m=>m>0?`up ${m}`:`down ${Math.abs(m)}`);
+      return{teach:"Track integer operations step by step. Going up = add positive, going down = add negative!",
+        question:`An elevator starts at floor ${start}. It goes ${dirs[0]}, then ${dirs[1]}, then ${dirs[2]}. What floor is it on?`,
+        answer:ans,type:"number",level:"Challenge",
+        hint1:`Start: ${start}. First move: ${start} + (${moves[0]}) = ${start+moves[0]}`,
+        hint2:`After second: ${start+moves[0]} + ${moves[1]} = ${start+moves[0]+moves[1]}. Then + (${moves[2]}) = ___`,
+        explanation:`${start} + (${moves[0]}) + ${moves[1]} + (${moves[2]}) = ${ans}! Track each step! 🔥`};
+    }
+  ];
+  return pick(G)();
+}
+
+// ======== BASIC ALGEBRA (12 templates) ========
+function genAlgebra(){
+  const G=[
+    // 1. One-step: x + a = b
+    function(){
+      const x=rand(1,15),a=rand(2,12);const b=x+a;
+      return{teach:"To solve x + a = b, subtract a from both sides!",
+        question:`Solve: x + ${a} = ${b}`,
+        answer:x,type:"number",level:"Warm-Up",
+        hint1:"Get x alone by subtracting from both sides.",
+        hint2:`x = ${b} - ${a} = ___`,
+        explanation:`x = ${b} - ${a} = ${x}. Check: ${x} + ${a} = ${b} ✅`};
+    },
+    // 2. One-step: ax = b
+    function(){
+      const x=rand(2,12),a=rand(2,9);const b=a*x;
+      return{teach:"To solve ax = b, divide both sides by a!",
+        question:`Solve: ${a}x = ${b}`,
+        answer:x,type:"number",level:"Building Up",
+        hint1:"Divide both sides by the number in front of x.",
+        hint2:`x = ${b} ÷ ${a} = ___`,
+        explanation:`x = ${b} ÷ ${a} = ${x}. Check: ${a} × ${x} = ${b} ✅`};
+    },
+    // 3. Two-step: ax + b = c
+    function(){
+      const x=rand(1,10),a=rand(2,6),b=rand(1,15);const c=a*x+b;
+      return{teach:"Two-step equation: first subtract, then divide! Undo in reverse order!",
+        question:`Solve: ${a}x + ${b} = ${c}`,
+        answer:x,type:"number",level:"Challenge",
+        hint1:`Subtract ${b} from both sides first: ${a}x = ${c} - ${b}`,
+        hint2:`${a}x = ${c-b}. Divide by ${a}: x = ___`,
+        explanation:`${a}x = ${c-b}. x = ${(c-b)/a} = ${x}. Check: ${a}(${x}) + ${b} = ${c} ✅`};
+    },
+    // 4. Evaluate expression
+    function(){
+      const x=rand(1,8),a=rand(2,5),b=rand(1,10);const val=a*x+b;
+      return{teach:"To evaluate: substitute the number for the variable, then compute!",
+        question:`Evaluate ${a}n + ${b} when n = ${x}`,
+        answer:val,type:"number",level:"Warm-Up",
+        hint1:`Replace n with ${x}: ${a}(${x}) + ${b}`,
+        hint2:`${a} × ${x} = ${a*x}. Then + ${b} = ___`,
+        explanation:`${a}(${x}) + ${b} = ${a*x} + ${b} = ${val} ✅`};
+    },
+    // 5. One-step: x - a = b
+    function(){
+      const x=rand(5,20),a=rand(2,10);const b=x-a;
+      return{teach:"To solve x - a = b, add a to both sides!",
+        question:`Solve: x - ${a} = ${b}`,
+        answer:x,type:"number",level:"Warm-Up",
+        hint1:"Add the same number to both sides to isolate x.",
+        hint2:`x = ${b} + ${a} = ___`,
+        explanation:`x = ${b} + ${a} = ${x}. Check: ${x} - ${a} = ${b} ✅`};
+    },
+    // 6. One-step: x/a = b
+    function(){
+      const b=rand(2,10),a=rand(2,8);const x=a*b;
+      return{teach:"If x is divided by a number, multiply both sides by that number to solve!",
+        question:`Solve: x ÷ ${a} = ${b}`,
+        answer:x,type:"number",level:"Building Up",
+        hint1:"x is being divided by ${a}. Undo division with multiplication!",
+        hint2:`x = ${b} × ${a} = ___`,
+        explanation:`x = ${b} × ${a} = ${x}. Check: ${x} ÷ ${a} = ${b} ✅`};
+    },
+    // 7. Two-step: ax - b = c
+    function(){
+      const x=rand(2,10),a=rand(2,6),b=rand(1,12);const c=a*x-b;
+      if(c<0)return G[2]();
+      return{teach:"For ax - b = c: first ADD b to both sides, then divide by a!",
+        question:`Solve: ${a}x - ${b} = ${c}`,
+        answer:x,type:"number",level:"Challenge",
+        hint1:`Add ${b} to both sides: ${a}x = ${c} + ${b}`,
+        hint2:`${a}x = ${c+b}. Divide: x = ${c+b} ÷ ${a} = ___`,
+        explanation:`${a}x = ${c+b}. x = ${x}. Check: ${a}(${x}) - ${b} = ${c} ✅`};
+    },
+    // 8. Write expression from words
+    function(){
+      const n=rand(2,8);const ops=["more than","added to"];const op=pick(ops);
+      const x_val=rand(1,10);const ans=n+x_val;
+      return{teach:"Translating words to math: 'more than' and 'added to' mean addition!",
+        question:`'${n} ${op} a number' gives ${ans}. What is the number?`,
+        answer:x_val,type:"number",level:"Warm-Up",
+        hint1:`If ${n} + ? = ${ans}, what's the missing number?`,
+        hint2:`${ans} - ${n} = ___`,
+        explanation:`${n} + ${x_val} = ${ans}. The number is ${x_val}! ✅`};
+    },
+    // 9. Distributive property
+    function(){
+      const a=rand(2,5),b=rand(1,8),c=rand(1,8);const ans=a*(b+c);
+      return{teach:"Distributive property: a(b + c) = ab + ac. Multiply the outside by each inside term!",
+        question:`Use distributive property: ${a}(${b} + ${c}) = ?`,
+        answer:ans,type:"number",level:"Building Up",
+        hint1:`Distribute: ${a} × ${b} + ${a} × ${c}`,
+        hint2:`${a*b} + ${a*c} = ___`,
+        explanation:`${a}(${b} + ${c}) = ${a*b} + ${a*c} = ${ans}! ✅`};
+    },
+    // 10. Combine like terms
+    function(){
+      const a=rand(2,8),b=rand(1,8),c=rand(1,6);const sum=a+c;
+      return{teach:"Combine like terms: add/subtract the coefficients of terms with the same variable!",
+        question:`Simplify: ${a}x + ${b} + ${c}x. What's the coefficient of x?`,
+        answer:sum,type:"number",level:"Building Up",
+        hint1:"Which terms have x? Add their coefficients.",
+        hint2:`${a}x + ${c}x = ___x`,
+        explanation:`${a}x + ${c}x = ${sum}x. So simplified: ${sum}x + ${b}. The coefficient is ${sum}! ✅`};
+    },
+    // 11. Inequality check
+    function(){
+      const x=rand(1,10),a=rand(2,6),b=rand(1,15);
+      const val=a*x+b;const target=val+pick([-3,-2,-1,1,2,3]);
+      const result=val>target?"yes":"no";
+      return{teach:"To check an inequality, substitute the value and see if the statement is true!",
+        question:`Is x = ${x} a solution to ${a}x + ${b} > ${target}?`,
+        type:"yesno",correctAnswer:result,level:"Challenge",
+        hint1:`Plug in: ${a}(${x}) + ${b} = ?`,
+        hint2:`${val}. Is ${val} > ${target}?`,
+        explanation:`${a}(${x}) + ${b} = ${val}. ${val} ${val>target?">":"≤"} ${target}, so ${result}! ✅`};
+    },
+    // 12. Evaluate with two operations
+    function(){
+      const x=rand(1,6),a=rand(2,5),b=rand(2,5),c=rand(1,10);
+      const val=a*x*x+c;  // keep it simple: a*x² + c (but frame it simpler)
+      const val2=a*(x+b);
+      return{teach:"Follow order of operations: parentheses first, then multiply!",
+        question:`Evaluate: ${a}(${x} + ${b})`,
+        answer:val2,type:"number",level:"Building Up",
+        hint1:`Parentheses first: ${x} + ${b} = ${x+b}`,
+        hint2:`${a} × ${x+b} = ___`,
+        explanation:`${a}(${x} + ${b}) = ${a} × ${x+b} = ${val2}! Parentheses first! ✅`};
+    }
+  ];
+  return pick(G)();
+}
+
+// ======== AREA & PERIMETER (12 templates) ========
+function genGeometry(){
+  const G=[
+    // 1. Rectangle area
+    function(){
+      const l=rand(3,15),w=rand(3,15);
+      const place=pick(VENUES);
+      return{teach:"Area of rectangle = length × width. Measured in square units!",
+        question:`A section of ${place} is ${l} ft by ${w} ft. What's the area?`,
+        answer:l*w,type:"number",level:"Warm-Up",
+        hint1:"Area = length × width",
+        hint2:`${l} × ${w} = ___`,
+        explanation:`Area = ${l} × ${w} = ${l*w} sq ft! 🏟️`};
+    },
+    // 2. Rectangle perimeter
+    function(){
+      const l=rand(3,12),w=rand(3,12);const p=2*(l+w);
+      return{teach:"Perimeter = distance AROUND. For a rectangle: P = 2(l + w).",
+        question:`Max's ${l} ft by ${w} ft Lions poster needs a border. How many feet of border?`,
+        answer:p,type:"number",level:"Building Up",
+        hint1:"P = 2 × (length + width)",
+        hint2:`2 × (${l} + ${w}) = 2 × ${l+w} = ___`,
+        explanation:`P = 2(${l} + ${w}) = ${p} feet! 📏`};
+    },
+    // 3. Triangle area
+    function(){
+      const b=rand(4,14),h=rand(3,12);const area=b*h/2;
+      return{teach:"Triangle area = (base × height) ÷ 2. Half the rectangle!",
+        question:`A pennant has base ${b} in and height ${h} in. What's the area?`,
+        answer:area,type:"number",level:"Building Up",
+        hint1:"Area = (base × height) ÷ 2",
+        hint2:`(${b} × ${h}) ÷ 2 = ${b*h} ÷ 2 = ___`,
+        explanation:`Area = (${b} × ${h}) ÷ 2 = ${area} sq inches! 🚩`};
+    },
+    // 4. Square area
+    function(){
+      const s=rand(3,12);
+      return{teach:"A square has all equal sides, so Area = side × side = side²!",
+        question:`A square trading card is ${s} cm on each side. What's the area?`,
+        answer:s*s,type:"number",level:"Warm-Up",
+        hint1:"All sides are the same. Area = side × side.",
+        hint2:`${s} × ${s} = ___`,
+        explanation:`Area = ${s}² = ${s*s} sq cm! ✅`};
+    },
+    // 5. Square perimeter
+    function(){
+      const s=rand(3,15);
+      return{teach:"Square perimeter = 4 × side (since all 4 sides are equal)!",
+        question:`A square field is ${s} yards on each side. What's the perimeter?`,
+        answer:4*s,type:"number",level:"Warm-Up",
+        hint1:"Perimeter of a square = 4 × one side",
+        hint2:`4 × ${s} = ___`,
+        explanation:`P = 4 × ${s} = ${4*s} yards! ✅`};
+    },
+    // 6. Find missing side from area
+    function(){
+      const l=rand(3,12),w=rand(3,12);const area=l*w;
+      return{teach:"If you know the area and one side, divide to find the other! Area ÷ known side = unknown side.",
+        question:`A rectangle has area ${area} sq ft and length ${l} ft. What's the width?`,
+        answer:w,type:"number",level:"Building Up",
+        hint1:"Area = length × width, so width = area ÷ length",
+        hint2:`${area} ÷ ${l} = ___`,
+        explanation:`Width = ${area} ÷ ${l} = ${w} ft! ✅`};
+    },
+    // 7. Find missing side from perimeter
+    function(){
+      const l=rand(5,15),w=rand(3,12);const p=2*(l+w);
+      return{teach:"P = 2(l + w). To find a missing side: P ÷ 2 = l + w, then subtract the known side!",
+        question:`A rectangle has perimeter ${p} ft and length ${l} ft. What's the width?`,
+        answer:w,type:"number",level:"Challenge",
+        hint1:`P ÷ 2 = l + w. So ${p} ÷ 2 = ${p/2}`,
+        hint2:`${p/2} = ${l} + w. So w = ${p/2} - ${l} = ___`,
+        explanation:`${p}/2 = ${p/2}. ${p/2} - ${l} = ${w} ft! 🔥`};
+    },
+    // 8. Parallelogram area
+    function(){
+      const b=rand(4,12),h=rand(3,10);
+      return{teach:"Parallelogram area = base × height (the height is PERPENDICULAR to the base)!",
+        question:`A parallelogram-shaped banner: base ${b} in, height ${h} in. Area?`,
+        answer:b*h,type:"number",level:"Building Up",
+        hint1:"Same as rectangle: base × height (not the slanted side!)",
+        hint2:`${b} × ${h} = ___`,
+        explanation:`Area = ${b} × ${h} = ${b*h} sq in! ✅`};
+    },
+    // 9. Compare two areas
+    function(){
+      const l1=rand(3,10),w1=rand(3,10),l2=rand(3,10),w2=rand(3,10);
+      const a1=l1*w1,a2=l2*w2;const bigger=a1>a2?`${l1}×${w1}`:a2>a1?`${l2}×${w2}`:`${l1}×${w1}`;
+      const biggerArea=Math.max(a1,a2);
+      return{teach:"To compare areas, calculate each one and see which is larger!",
+        question:`Which rectangle is bigger: ${l1} ft × ${w1} ft or ${l2} ft × ${w2} ft?`,
+        answer:bigger,type:"choice",choices:[`${l1}×${w1}`,`${l2}×${w2}`],level:"Building Up",
+        hint1:`Calculate both: ${l1}×${w1} = ${a1} and ${l2}×${w2} = ${a2}`,
+        hint2:`${a1} vs ${a2}. Which is bigger?`,
+        explanation:`${l1}×${w1} = ${a1} and ${l2}×${w2} = ${a2}. ${bigger} is larger at ${biggerArea} sq ft! ✅`};
+    },
+    // 10. Composite shape (L-shape)
+    function(){
+      const a=rand(3,8),b=rand(3,8),c=rand(2,4),d=rand(2,4);
+      const total=a*b+c*d;
+      return{teach:"For composite shapes, break them into simple shapes, find each area, then add!",
+        question:`An L-shaped room: one part is ${a}×${b} ft, the other is ${c}×${d} ft. Total area?`,
+        answer:total,type:"number",level:"Challenge",
+        hint1:"Break into two rectangles and add their areas.",
+        hint2:`${a}×${b} = ${a*b} and ${c}×${d} = ${c*d}. Total: ___`,
+        explanation:`${a*b} + ${c*d} = ${total} sq ft. Split → solve → combine! 🔥`};
+    },
+    // 11. Perimeter of triangle
+    function(){
+      const a=rand(3,10),b=rand(3,10),c=rand(Math.abs(a-b)+1,a+b-1);
+      const p=a+b+c;
+      return{teach:"Triangle perimeter = add all three sides together!",
+        question:`A triangular flag has sides ${a} in, ${b} in, and ${c} in. Perimeter?`,
+        answer:p,type:"number",level:"Warm-Up",
+        hint1:"Perimeter = sum of all sides",
+        hint2:`${a} + ${b} + ${c} = ___`,
+        explanation:`P = ${a} + ${b} + ${c} = ${p} inches! ✅`};
+    },
+    // 12. Area from perimeter (square)
+    function(){
+      const s=rand(3,12);const p=4*s;
+      return{teach:"Square: if P = 4s, then s = P ÷ 4. Then area = s × s!",
+        question:`A square has perimeter ${p} ft. What's its area?`,
+        answer:s*s,type:"number",level:"Challenge",
+        hint1:`Find one side: ${p} ÷ 4 = ?`,
+        hint2:`Side = ${s}. Area = ${s} × ${s} = ___`,
+        explanation:`Side = ${p} ÷ 4 = ${s}. Area = ${s}² = ${s*s} sq ft! 🔥`};
+    }
+  ];
+  return pick(G)();
+}
+
+// ======== MEAN, MEDIAN, MODE, RANGE (12 templates) ========
+function genStats(){
+  const G=[
+    // 1. Mean of 5 (ensure whole number)
+    function(){
+      const n=5;let vals=Array.from({length:n},()=>rand(5,30)).sort((a,b)=>a-b);
+      let sum=vals.reduce((a,b)=>a+b,0);
+      const rem=sum%n;if(rem!==0){vals[n-1]+=(n-rem);vals.sort((a,b)=>a-b);sum=vals.reduce((a,b)=>a+b,0)}
+      const mean=sum/n;const p=pick(PLAYERS);
+      return{teach:"Mean (average) = add all numbers, then divide by how many!",
+        question:`${p}'s scores: ${vals.join(", ")}. What's the mean?`,
+        answer:mean,type:"number",level:"Building Up",
+        hint1:`Add: ${vals.join(" + ")} = ?`,
+        hint2:`Sum = ${sum}. Divide by ${n}: ___`,
+        explanation:`Mean = ${sum} ÷ ${n} = ${mean}! 📊`};
+    },
+    // 2. Median of odd count
+    function(){
+      const vals=Array.from({length:5},()=>rand(2,25)).sort((a,b)=>a-b);
+      const shuffled=shuffle([...vals]);
+      return{teach:"Median = middle number when values are in ORDER!",
+        question:`Find the median: ${shuffled.join(", ")}`,
+        answer:vals[2],type:"number",level:"Warm-Up",
+        hint1:"First, put them in order from least to greatest.",
+        hint2:`Ordered: ${vals.join(", ")}. The middle (3rd) one is ___`,
+        explanation:`Ordered: ${vals.join(", ")}. Median = ${vals[2]}! ✅`};
+    },
+    // 3. Range
+    function(){
+      const vals=Array.from({length:6},()=>rand(3,30)).sort((a,b)=>a-b);
+      const range=vals[vals.length-1]-vals[0];
+      return{teach:"Range = highest − lowest. Shows how spread out the data is!",
+        question:`Game scores: ${shuffle([...vals]).join(", ")}. What's the range?`,
+        answer:range,type:"number",level:"Warm-Up",
+        hint1:"Find the biggest and smallest numbers.",
+        hint2:`Max: ${vals[vals.length-1]}, Min: ${vals[0]}. Subtract: ___`,
+        explanation:`Range = ${vals[vals.length-1]} - ${vals[0]} = ${range}! ✅`};
+    },
+    // 4. Mode
+    function(){
+      const mode=rand(3,20);
+      let others=[rand(1,20),rand(1,20),rand(1,20)];
+      others=others.map(v=>v===mode?v+1:v); // avoid duplicating mode accidentally
+      const data=shuffle([mode,mode,mode,...others]);
+      return{teach:"Mode = the number that appears MOST often!",
+        question:`Find the mode: ${data.join(", ")}`,
+        answer:mode,type:"number",level:"Warm-Up",
+        hint1:"Count how many times each number appears.",
+        hint2:`Which number shows up 3 times?`,
+        explanation:`${mode} appears 3 times — it's the mode! ✅`};
+    },
+    // 5. Median of even count
+    function(){
+      const vals=Array.from({length:6},()=>rand(2,20)).sort((a,b)=>a-b);
+      const med=(vals[2]+vals[3])/2;
+      const shuffled=shuffle([...vals]);
+      return{teach:"For an even count: median = average of the two middle numbers!",
+        question:`Find the median: ${shuffled.join(", ")}. (May be a decimal)`,
+        answer:med,type:"number",level:"Challenge",
+        hint1:`Put in order first. With 6 numbers, average the 3rd and 4th.`,
+        hint2:`Ordered: ${vals.join(", ")}. Middle two: ${vals[2]} and ${vals[3]}. Average: ___`,
+        explanation:`(${vals[2]} + ${vals[3]}) ÷ 2 = ${med}. Median of even count! 🔥`};
+    },
+    // 6. Mean of 4
+    function(){
+      let vals=Array.from({length:4},()=>rand(10,40));
+      let sum=vals.reduce((a,b)=>a+b,0);
+      const rem=sum%4;if(rem!==0){vals[3]+=(4-rem);sum=vals.reduce((a,b)=>a+b,0)}
+      const mean=sum/4;
+      const s=pick(SPORTS);
+      return{teach:"Mean = total ÷ count. Works the same whether you have 4, 5, or any amount of numbers!",
+        question:`${s.team} scores for 4 games: ${vals.join(", ")}. What's the mean?`,
+        answer:mean,type:"number",level:"Building Up",
+        hint1:`Add: ${vals.join(" + ")} = ?`,
+        hint2:`Sum = ${sum}. Divide by 4: ___`,
+        explanation:`${sum} ÷ 4 = ${mean}! ${s.emoji}`};
+    },
+    // 7. Missing value for target mean
+    function(){
+      const n=4;const target_mean=rand(10,20);
+      const vals=Array.from({length:n-1},()=>rand(5,25));
+      const sum_so_far=vals.reduce((a,b)=>a+b,0);
+      const missing=target_mean*n-sum_so_far;
+      if(missing<0||missing>50)return G[0]();
+      return{teach:"To find a missing value: mean × count = total needed. Subtract what you have!",
+        question:`Max's scores: ${vals.join(", ")}, and ???. He needs a mean of ${target_mean}. What must the last score be?`,
+        answer:missing,type:"number",level:"Challenge",
+        hint1:`Total needed = mean × count = ${target_mean} × ${n} = ${target_mean*n}`,
+        hint2:`${target_mean*n} - (${vals.join(" + ")}) = ${target_mean*n} - ${sum_so_far} = ___`,
+        explanation:`Need ${target_mean*n} total. Have ${sum_so_far}. Missing = ${missing}! 🔥`};
+    },
+    // 8. Mean vs Median comparison
+    function(){
+      const vals=[rand(2,8),rand(2,8),rand(2,8),rand(2,8),rand(30,50)]; // outlier makes mean > median
+      vals.sort((a,b)=>a-b);
+      const sum=vals.reduce((a,b)=>a+b,0);const mean=sum/5;const median=vals[2];
+      const bigger=mean>median?"Mean":"Median";
+      return{teach:"An outlier (extreme value) pulls the mean away but barely affects the median!",
+        question:`Data: ${vals.join(", ")}. Which is larger: the mean or median?`,
+        answer:bigger,type:"choice",choices:["Mean","Median"],level:"Challenge",
+        hint1:`Mean = ${sum} ÷ 5 = ${mean}. Median = middle = ${median}.`,
+        hint2:`${mean} vs ${median}. Which is bigger?`,
+        explanation:`Mean = ${mean}, Median = ${median}. The outlier (${vals[4]}) pulls the mean up! The ${bigger} is larger. 📊`};
+    },
+    // 9. Range after adding a value
+    function(){
+      const vals=Array.from({length:5},()=>rand(10,25)).sort((a,b)=>a-b);
+      const newVal=rand(1,vals[0]-1); // new minimum
+      const newRange=vals[vals.length-1]-newVal;
+      return{teach:"Adding a new value might change the range if it's a new min or max!",
+        question:`Data: ${vals.join(", ")}. If we add ${newVal}, what's the new range?`,
+        answer:newRange,type:"number",level:"Building Up",
+        hint1:`New min would be ${newVal}. Max stays ${vals[vals.length-1]}.`,
+        hint2:`New range: ${vals[vals.length-1]} - ${newVal} = ___`,
+        explanation:`New range = ${vals[vals.length-1]} - ${newVal} = ${newRange}! Adding changed the minimum. ✅`};
+    },
+    // 10. Median of 7 numbers
+    function(){
+      const vals=Array.from({length:7},()=>rand(1,30)).sort((a,b)=>a-b);
+      const shuffled=shuffle([...vals]);
+      return{teach:"For 7 numbers in order, the median is the 4th one (middle of 7)!",
+        question:`Find the median: ${shuffled.join(", ")}`,
+        answer:vals[3],type:"number",level:"Building Up",
+        hint1:"Put them in order first. The 4th number is the middle.",
+        hint2:`Ordered: ${vals.join(", ")}. Position 4 is ___`,
+        explanation:`Ordered: ${vals.join(", ")}. Median (4th of 7) = ${vals[3]}! ✅`};
+    },
+    // 11. Two modes
+    function(){
+      const m1=rand(3,12),m2=rand(m1+3,25);
+      const data=shuffle([m1,m1,m2,m2,rand(1,30)]);
+      const sorted=[...data].sort((a,b)=>a-b);
+      const smaller=Math.min(m1,m2);
+      return{teach:"If two numbers appear the same number of times (most), the data is bimodal — it has two modes!",
+        question:`Data: ${data.join(", ")}. What is the SMALLER of the two modes?`,
+        answer:smaller,type:"number",level:"Building Up",
+        hint1:"Count how many times each number appears.",
+        hint2:`Two numbers each appear twice. The smaller one is ___`,
+        explanation:`${m1} and ${m2} each appear twice. The smaller mode is ${smaller}! ✅`};
+    },
+    // 12. Mean word problem
+    function(){
+      const games=rand(4,6);const total=games*rand(10,20);const mean=total/games;
+      const p=pick(PLAYERS);const thing=pick(["points","yards","rebounds"]);
+      return{teach:"If you know the mean and how many values, you can find the total: total = mean × count!",
+        question:`${p} averaged ${mean} ${thing} over ${games} games. What was the total?`,
+        answer:total,type:"number",level:"Building Up",
+        hint1:`Average (mean) × number of games = total`,
+        hint2:`${mean} × ${games} = ___`,
+        explanation:`${mean} × ${games} = ${total} total ${thing}! ✅`};
+    }
+  ];
+  return pick(G)();
+}
+
+// ============ TOPIC CONFIG ============
+const TOPICS=[
+  {id:"ratios",name:"Equivalent Ratios",icon:"⚖️",desc:"Scale factors & proportions",gen:genRatio,
+   takeaway:"Equivalent ratios keep the same relationship — multiply or divide BOTH sides by the same number!"},
+  {id:"fractions",name:"Fractions",icon:"🍕",desc:"Add, subtract, multiply, divide",gen:genFraction,
+   takeaway:"Find common denominators to add/subtract. Multiply straight across. Keep-Change-Flip to divide!"},
+  {id:"decimals",name:"Decimals & Percents",icon:"💰",desc:"Convert, calculate, apply",gen:genDecimal,
+   takeaway:"Percent → decimal: ÷ 100. Decimal → percent: × 100. To find X% of Y: convert and multiply!"},
+  {id:"integers",name:"Integers",icon:"➖",desc:"Negatives & absolute value",gen:genInteger,
+   takeaway:"Same signs → add & keep sign. Different signs → subtract & keep the bigger one's sign. Neg × neg = pos!"},
+  {id:"algebra",name:"Basic Algebra",icon:"🧩",desc:"Expressions & equations",gen:genAlgebra,
+   takeaway:"To solve for x: undo operations in reverse order. What's done last gets undone first!"},
+  {id:"geometry",name:"Area & Perimeter",icon:"📐",desc:"Rectangles, triangles & more",gen:genGeometry,
+   takeaway:"Area = space inside (sq units). Perimeter = distance around. Know your formulas!"},
+  {id:"stats",name:"Mean, Median & Range",icon:"📊",desc:"Averages, middle & spread",gen:genStats,
+   takeaway:"Mean = sum ÷ count. Median = middle value (order first!). Mode = most frequent. Range = max − min."}
+];
+
+// ============ STATE ============
+const TEAM_CONFETTI=["#0076B6","#B0B7BC","#FA4616","#FFCB05","#00274C","#0C2340"];
+const NUM_QUESTIONS=20;
+let S={screen:"home",topic:null,questions:[],qIndex:0,input:"",hintsUsed:0,feedback:null,score:0,attempts:0,results:[]};
+
+function confetti(){for(let i=0;i<35;i++){const el=document.createElement("div");el.className="confetti-piece";const s=6+Math.random()*8;el.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;background:${TEAM_CONFETTI[i%6]};border-radius:${Math.random()>.5?"50%":"2px"};animation-delay:${Math.random()*.5}s;`;document.body.appendChild(el);setTimeout(()=>el.remove(),3000)}}
+
+function generateQuiz(topicId){
+  const topic=TOPICS.find(t=>t.id===topicId);
+  // Generate questions with difficulty curve: 7 Warm-Up, 7 Building Up, 6 Challenge
+  const warmUp=[],buildUp=[],challenge=[];
+  let safety=0;
+  while((warmUp.length<10||buildUp.length<10||challenge.length<10)&&safety<200){
+    safety++;
+    const q=topic.gen();
+    if(q.level==="Warm-Up"&&warmUp.length<10)warmUp.push(q);
+    else if(q.level==="Building Up"&&buildUp.length<10)buildUp.push(q);
+    else if(q.level==="Challenge"&&challenge.length<10)challenge.push(q);
+  }
+  // Pick from each bucket for a nice progression
+  const selected=[];
+  shuffle(warmUp).slice(0,7).forEach(q=>selected.push(q));
+  shuffle(buildUp).slice(0,7).forEach(q=>selected.push(q));
+  shuffle(challenge).slice(0,6).forEach(q=>selected.push(q));
+  // If we're short, fill with any
+  while(selected.length<NUM_QUESTIONS){selected.push(topic.gen())}
+  // Number them
+  selected.forEach((q,i)=>q._num=i+1);
+  return selected.slice(0,NUM_QUESTIONS);
+}
+
+function streakDots(){
+  return S.questions.map((_,i)=>{
+    if(i<S.results.length){const r=S.results[i];return`<div class="streak-dot ${r.correct?'correct':'wrong'}">${r.correct?'✓':'✗'}</div>`}
+    if(i===S.qIndex&&S.screen==='quiz')return`<div class="streak-dot current">${i+1}</div>`;
+    return`<div class="streak-dot">${i+1}</div>`;
+  }).join('');
+}
+
+// ============ RENDER ============
+function render(){
+  const app=document.getElementById("app");
+
+  if(S.screen==="home"){
+    const topicBtns=TOPICS.map(t=>`<div class="topic-btn" onclick="startTopic('${t.id}')"><span class="icon">${t.icon}</span><div class="name">${t.name}</div><div class="desc">${t.desc}</div></div>`).join("");
+    app.innerHTML=`<div class="card">
+      <div class="hero">
+        <div class="tagline">6th Grade Math</div>
+        <div class="player-name">MAX</div>
+        <div class="jersey">🦁 Pick a topic and let's practice!</div>
+      </div>
+      <h3 style="font-family:'Russo One',sans-serif;color:#0C2340;font-size:16px;margin-bottom:14px;text-align:center">CHOOSE YOUR PLAY</h3>
+      <div class="topic-grid">${topicBtns}</div>
+    </div>`;
+    return;
+  }
+
+  if(S.screen==="done"){
+    const topic=TOPICS.find(t=>t.id===S.topic);
+    const pct=Math.round((S.score/NUM_QUESTIONS)*100);
+    const emoji=pct>=80?"🏆":pct>=60?"💪":"📚";
+    const msg=pct>=80?"MVP performance, Max! You crushed it!":pct>=60?"Solid game! A few more reps and you'll have it locked down.":"Good first drive! Every great player needs practice. Run it back!";
+    const grad=pct>=80?"linear-gradient(135deg,#4ade80,#22c55e)":pct>=60?"linear-gradient(135deg,#FFCB05,#fbbf24)":"linear-gradient(135deg,#FA4616,#f87171)";
+    if(pct>=80)confetti();
+    const rows=S.results.map((r,i)=>`<div class="result-row"><span class="icon">${r.correct?"✅":"❌"}</span><span class="q-text">Q${i+1}: ${S.questions[i].question.slice(0,50)}...</span><span class="hints">${r.hintsUsed>0?r.hintsUsed+" hint"+(r.hintsUsed>1?"s":""):"No hints"}</span></div>`).join("");
+    app.innerHTML=`<div class="card"><div style="text-align:center;padding:20px 0">
+      <div style="font-size:56px;margin-bottom:8px">${emoji}</div>
+      <h1 style="font-family:'Russo One',sans-serif;font-size:24px;color:#0C2340">FINAL SCORE</h1>
+      <div class="result-score" style="background:${grad};-webkit-background-clip:text;background-clip:text">${S.score} / ${NUM_QUESTIONS}</div>
+      <p style="font-size:15px;color:#64748b;margin-bottom:20px;line-height:1.5">${msg}</p>
+      <div class="results-box"><h3>📋 Game Stats</h3>${rows}</div>
+      <div class="takeaway"><h3>🔑 Playbook Takeaway</h3><p>${topic.takeaway}</p></div>
+      <button class="btn-start" onclick="startTopic('${S.topic}')" style="margin-bottom:10px">RUN IT BACK 🔄</button>
+      <button class="btn-back" onclick="goHome()">PICK A DIFFERENT TOPIC</button>
+    </div></div>`;
+    return;
+  }
+
+  // Quiz screen
+  const q=S.questions[S.qIndex];
+  const topic=TOPICS.find(t=>t.id===S.topic);
+  const done=S.feedback&&(S.feedback.type==="correct"||S.feedback.type==="showAnswer");
+  const lc=q.level==="Warm-Up"?"#0076B6":q.level==="Building Up"?"#FFCB05":"#FA4616";
+  const ltc=q.level==="Building Up"?"#78350f":"white";
+
+  let inp="";
+  if(!done){
+    if(q.type==="yesno"){
+      inp=`<div class="yesno-row"><button class="btn-yes" onclick="check('yes')">Yes ✅</button><button class="btn-no" onclick="check('no')">No ❌</button></div>`;
+    }else if(q.type==="choice"&&q.choices){
+      inp=`<div class="choices">${q.choices.map(c=>`<button class="choice-btn" onclick="check('${c.replace(/'/g,"\\'")}')">${c}</button>`).join("")}</div>`;
+    }else{
+      inp=`<div class="input-row"><input type="number" step="any" id="ai" value="${S.input}" placeholder="Your answer..." onkeydown="if(event.key==='Enter')check()"><button class="btn-check" onclick="check()">CHECK</button></div>`;
+    }
+  }
+
+  let hint="";
+  if(!done&&S.hintsUsed<2){hint=`<button class="hint-btn" onclick="getHint()">💡 ${S.hintsUsed===0?"Get a hint":"One more hint"} (${2-S.hintsUsed} left)</button>`}
+
+  let fb="";
+  if(S.feedback){const f=S.feedback;const pfx=f.type==="correct"?"🎉 TOUCHDOWN! ":f.type==="hint"?"💡 Coach says: ":f.type==="showAnswer"?"📝 Here's the play: ":"";fb=`<div class="feedback ${f.type}"><p>${pfx}${f.msg}</p></div>`}
+
+  let nx="";
+  if(done){const label=S.qIndex+1<NUM_QUESTIONS?"NEXT PLAY →":"SEE FINAL SCORE 🏆";nx=`<button class="btn-next" onclick="next()">${label}</button>`}
+
+  app.innerHTML=`<div class="card">
+    <div class="header-bar">
+      <div class="logo">${topic.icon}</div>
+      <div class="title-area"><h2>${topic.name}</h2><div class="subtitle">Q${S.qIndex+1} of ${NUM_QUESTIONS}</div></div>
+      <div class="score-badge">${S.score} pts</div>
+    </div>
+    <div class="streak-bar">${streakDots()}</div>
+    <div class="progress-track"><div class="progress-fill" style="width:${(S.qIndex/NUM_QUESTIONS)*100}%"></div></div>
+    <span class="level-badge" style="background:${lc};color:${ltc}">${q.level}</span>
+    <div class="teach-box"><p>📖 <strong>Learn:</strong> ${q.teach}</p></div>
+    <div class="question-box"><p>${q.question}</p>${q.visual?`<pre class="visual">${q.visual}</pre>`:""}</div>
+    ${inp}${hint}${fb}${nx}
+    <div style="text-align:center"><button class="btn-back" onclick="goHome()">← Back to topics</button></div>
+  </div>`;
+
+  if(!done&&q.type==="number"){const el=document.getElementById("ai");if(el){el.focus();el.value=S.input}}
+}
+
+// ============ ACTIONS ============
+function goHome(){S={screen:"home",topic:null,questions:[],qIndex:0,input:"",hintsUsed:0,feedback:null,score:0,attempts:0,results:[]};render()}
+
+function startTopic(id){
+  S={screen:"quiz",topic:id,questions:generateQuiz(id),qIndex:0,input:"",hintsUsed:0,feedback:null,score:0,attempts:0,results:[]};
+  render();
+}
+
+function check(v){
+  const q=S.questions[S.qIndex];
+  let uv;
+  if(q.type==="yesno"||q.type==="choice"){uv=v}else{const el=document.getElementById("ai");uv=el?el.value.trim():S.input.trim();S.input=uv}
+  if(!uv&&uv!==0)return;
+  let ok=false;
+  if(q.type==="yesno"){ok=uv.toLowerCase()===q.correctAnswer}
+  else if(q.type==="choice"){ok=uv===String(q.answer)}
+  else{ok=Math.abs(Number(uv)-q.answer)<0.01}
+  if(ok){S.score++;confetti();S.feedback={type:"correct",msg:q.explanation};S.results.push({correct:true,hintsUsed:S.hintsUsed,attempts:S.attempts+1})}
+  else{S.attempts++;if(S.attempts>=3&&S.hintsUsed>=2){S.feedback={type:"showAnswer",msg:q.explanation};S.results.push({correct:false,hintsUsed:S.hintsUsed,attempts:S.attempts})}else{S.feedback={type:"tryAgain",msg:S.attempts===1?"Incomplete pass! Try again — grab a hint below 👇":"Almost had it! One more shot, or use a hint."}}}
+  render();
+}
+
+function getHint(){
+  const q=S.questions[S.qIndex];
+  if(S.hintsUsed===0){S.feedback={type:"hint",msg:q.hint1};S.hintsUsed=1}
+  else if(S.hintsUsed===1){S.feedback={type:"hint",msg:q.hint2};S.hintsUsed=2}
+  render();
+}
+
+function next(){
+  if(S.qIndex+1<S.questions.length){S.qIndex++;S.input="";S.hintsUsed=0;S.feedback=null;S.attempts=0;render()}
+  else{S.screen="done";render()}
+}
+
+render();
+</script>
+</body>
+</html>
