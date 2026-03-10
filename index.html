@@ -132,7 +132,7 @@
 
   /* Mav sight word flash card */
   .sight-word-big{font-family:'Fredoka',sans-serif;font-size:64px;color:#1A1A2E;text-align:center;padding:20px;letter-spacing:2px}
-  .sight-word-color{font-family:'Fredoka',sans-serif;font-size:64px;text-align:center;padding:20px;letter-spacing:2px}
+  .sight-word-color{font-family:'Fredoka',sans-serif;font-size:64px;text-align:center;padding:20px;letter-spacing:2px;background:rgba(255,255,255,0.95);border-radius:16px;display:inline-block;padding:16px 28px}
   .letter-big{font-family:'Fredoka',sans-serif;font-size:80px;color:#E23636;text-align:center;padding:10px}
   .letter-small{font-family:'Fredoka',sans-serif;font-size:48px;color:#1A1A2E;text-align:center}
   .emoji-count{font-size:36px;text-align:center;line-height:1.6;letter-spacing:4px;padding:10px}
@@ -1185,6 +1185,7 @@ const MAV_CONFETTI=["#E23636","#FFD700","#0066CC","#ff4444","#1A1A2E","#4ade80"]
 
 const SIGHT_WORDS=["here","you","come","go","is","me","my","see","the","to","up","we","and","do","got","had","he","she","black","can","did","him","of","green","orange","has","on","in","his","look","like","it","have","be","at","am","for","get","play"];
 const COLOR_WORDS={"green":"#22c55e","orange":"#f97316","black":"#1e293b"};
+const WORD_PICS={"here":"📍","you":"👉","come":"🏃","go":"🚶","see":"👀","me":"🙋","up":"⬆️","we":"👫","play":"⛹️","look":"🔍","he":"👦","she":"👧","green":"🟢","orange":"🟠","black":"⚫","can":"💪","do":"✅","got":"🎁","get":"🫴","had":"📦","did":"✏️","him":"👦","has":"🎒","on":"🔛","in":"📥","his":"👔","like":"❤️","it":"👆","have":"🤲","be":"🌟","at":"📌","am":"😊","for":"🎀","and":"🤝","my":"💖","the":"📄","to":"➡️"};
 
 // ============ MAVERICK'S GENERATORS ============
 
@@ -1299,18 +1300,19 @@ function genAlphabet(){
 function genSightWords(){
   const hero=pick(HEROES);const emoji=HERO_EMOJI[hero];
   const G=[
-    // 1. Read the word — which one is it?
+    // 1. See a picture — pick the matching word
     function(){
-      const word=pick(SIGHT_WORDS);
-      const wrongs=shuffle(SIGHT_WORDS.filter(w=>w!==word)).slice(0,3);
-      const isColor=COLOR_WORDS[word];
-      const vis=isColor?`<span class="sight-word-color" style="color:${isColor}">${word}</span>`:`<span class="sight-word-big">${word}</span>`;
-      return{teach:`${hero} says: Look at the word carefully. You know this one!`,
-        question:`Can you read this word?`,
+      const picWords=SIGHT_WORDS.filter(w=>WORD_PICS[w]);
+      const word=pick(picWords);
+      const wrongs=shuffle(picWords.filter(w=>w!==word)).slice(0,3);
+      const pic=WORD_PICS[word];
+      const vis=`<div style="font-size:80px;text-align:center;padding:16px">${pic}</div>`;
+      return{teach:`${hero} says: Look at the picture! Can you find the word that matches?`,
+        question:`Which word matches this picture?`,
         visual:vis,
         answer:word,type:"choice",choices:shuffle([word,...wrongs]),level:"Warm-Up",
-        hint1:`Look at the first letter: "${word[0]}". What word starts with that letter?`,
-        explanation:`The word is "${word}"! ${emoji} Awesome reading! ⭐`};
+        hint1:`The word starts with "${word[0]}". Sound it out!`,
+        explanation:`The answer is "${word}"! ${pic} ${emoji} Awesome reading! ⭐`};
     },
     // 2. Pick the right word to finish the sentence
     function(){
