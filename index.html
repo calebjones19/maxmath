@@ -3,14 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Max's Math Playbook</title>
+<title>Jones Boys Learning Hub</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Inter:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Inter:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap');
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#00274C 0%,#0C2340 40%,#0076B6 100%);min-height:100vh;display:flex;justify-content:center;padding:20px;position:relative}
+  body{font-family:'Inter',sans-serif;min-height:100vh;display:flex;justify-content:center;padding:20px;position:relative;transition:background .5s}
+  body.max-theme{background:linear-gradient(135deg,#00274C 0%,#0C2340 40%,#0076B6 100%)}
+  body.mav-theme{background:linear-gradient(135deg,#1A1A2E 0%,#16213E 40%,#0F3460 100%)}
+  body.landing-theme{background:linear-gradient(135deg,#1a1a2e 0%,#0C2340 30%,#0F3460 60%,#0076B6 100%)}
   body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;z-index:0}
   .container{max-width:640px;width:100%;position:relative;z-index:1}
   .card{background:rgba(255,255,255,0.97);border-radius:16px;padding:28px;box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+
+  /* ===== LANDING PAGE ===== */
+  .landing-title{font-family:'Russo One',sans-serif;font-size:28px;color:#0C2340;text-align:center;margin-bottom:6px}
+  .landing-sub{text-align:center;color:#64748b;font-size:14px;margin-bottom:24px;font-weight:500}
+  .player-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  .player-card{border-radius:16px;padding:28px 16px;text-align:center;cursor:pointer;transition:all .25s;border:3px solid transparent;position:relative;overflow:hidden}
+  .player-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
+  .player-card.max-card{background:linear-gradient(135deg,#0C2340,#0076B6);border-color:#FA4616}
+  .player-card.max-card:hover{border-color:#FFCB05}
+  .player-card.mav-card{background:linear-gradient(135deg,#1A1A2E,#E23636);border-color:#FFD700}
+  .player-card.mav-card:hover{border-color:#ff4444}
+  .player-card .pc-emoji{font-size:48px;margin-bottom:8px;display:block}
+  .player-card .pc-name{font-family:'Russo One',sans-serif;font-size:32px;color:white;display:block;margin-bottom:4px}
+  .player-card .pc-grade{color:rgba(255,255,255,0.8);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px}
+  .player-card .pc-desc{color:rgba(255,255,255,0.6);font-size:11px;margin-top:6px}
+
+  /* ===== MAX STYLES ===== */
   .header-bar{background:linear-gradient(135deg,#0076B6,#00274C);border-radius:12px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px;border-bottom:3px solid #FA4616}
   .header-bar .logo{font-size:32px}
   .header-bar .title-area{flex:1}
@@ -84,9 +104,41 @@
   .choices{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
   .choice-btn{padding:12px;font-size:15px;font-weight:600;border-radius:10px;cursor:pointer;border:2px solid #e2e8f0;background:#f8fafc;color:#1e293b;transition:all .15s;font-family:'Inter',sans-serif;text-align:center}
   .choice-btn:hover{border-color:#0076B6;background:#f0f9ff}
+
+  /* ===== MAVERICK STYLES ===== */
+  .mav .hero{background:linear-gradient(135deg,#1A1A2E,#E23636);border-bottom:4px solid #FFD700}
+  .mav .hero::after{background:radial-gradient(circle,rgba(255,215,0,0.2) 0%,transparent 70%)}
+  .mav .hero .tagline{color:#FFD700}
+  .mav .hero .player-name{background:#E23636}
+  .mav .header-bar{background:linear-gradient(135deg,#E23636,#1A1A2E);border-bottom:3px solid #FFD700}
+  .mav .question-box{border-color:#E23636}
+  .mav .question-box::before{content:'⭐'}
+  .mav .teach-box{border-left-color:#FFD700}
+  .mav .hint-btn{color:#E23636;border-color:#E23636;background:rgba(226,54,54,0.06)}
+  .mav .hint-btn:hover{background:rgba(226,54,54,0.12)}
+  .mav .btn-check{background:linear-gradient(135deg,#E23636,#b91c1c)}
+  .mav .btn-next{background:linear-gradient(135deg,#E23636,#ff4444)}
+  .mav .btn-start{background:linear-gradient(135deg,#E23636,#ff4444);box-shadow:0 4px 16px rgba(226,54,54,0.35)}
+  .mav .score-badge{background:linear-gradient(135deg,#FFD700,#f59e0b)}
+  .mav .progress-fill{background:linear-gradient(90deg,#E23636,#FFD700)}
+  .mav .streak-dot.current{border-color:#E23636;color:#E23636;background:rgba(226,54,54,0.08)}
+  .mav .topic-btn:hover{border-color:#E23636;background:#fff5f5}
+  .mav .topic-btn .name{color:#1A1A2E}
+  .mav .choice-btn:hover{border-color:#E23636;background:#fff5f5}
+  .mav .choice-btn{font-size:18px;padding:16px}
+  .mav .question-box p{font-size:20px}
+  .mav .teach-box p{font-size:15px}
+  .mav .input-row input:focus{border-color:#E23636;box-shadow:0 0 0 3px rgba(226,54,54,0.15)}
+
+  /* Mav sight word flash card */
+  .sight-word-big{font-family:'Fredoka',sans-serif;font-size:64px;color:#1A1A2E;text-align:center;padding:20px;letter-spacing:2px}
+  .sight-word-color{font-family:'Fredoka',sans-serif;font-size:64px;text-align:center;padding:20px;letter-spacing:2px}
+  .letter-big{font-family:'Fredoka',sans-serif;font-size:80px;color:#E23636;text-align:center;padding:10px}
+  .letter-small{font-family:'Fredoka',sans-serif;font-size:48px;color:#1A1A2E;text-align:center}
+  .emoji-count{font-size:36px;text-align:center;line-height:1.6;letter-spacing:4px;padding:10px}
 </style>
 </head>
-<body>
+<body class="landing-theme">
 <div class="container" id="app"></div>
 <script>
 // ============ UTILITIES ============
@@ -1107,7 +1159,6 @@ function genStats(){
   ];
   return pick(G)();
 }
-
 // ============ TOPIC CONFIG ============
 const TOPICS=[
   {id:"ratios",name:"Equivalent Ratios",icon:"⚖️",desc:"Scale factors & proportions",gen:genRatio,
@@ -1126,38 +1177,430 @@ const TOPICS=[
    takeaway:"Mean = sum ÷ count. Median = middle value (order first!). Mode = most frequent. Range = max − min."}
 ];
 
+// ============ MAVERICK'S THEME DATA ============
+const HEROES=["Iron Man","Spider-Man","Captain America","Hulk","Thor","Black Panther"];
+const HERO_EMOJI={"Iron Man":"🦸","Spider-Man":"🕷️","Captain America":"🛡️","Hulk":"💪","Thor":"⚡","Black Panther":"🐾"};
+const MAV_THINGS=["monster trucks","Legos","guitars","baseballs","llamas","action figures","stickers","crayons","toy cars","cookies"];
+const MAV_CONFETTI=["#E23636","#FFD700","#0066CC","#ff4444","#1A1A2E","#4ade80"];
+
+const SIGHT_WORDS=["here","you","come","go","is","me","my","see","the","to","up","we","and","do","got","had","he","she","black","can","did","him","of","green","orange","has","on","in","his","look","like","it","have","be","at","am","for","get","play"];
+const COLOR_WORDS={"green":"#22c55e","orange":"#f97316","black":"#1e293b"};
+
+// ============ MAVERICK'S GENERATORS ============
+
+// ======== ALPHABET ADVENTURE ========
+function genAlphabet(){
+  const ALPHA="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const WORD_MAP={A:"apple",B:"ball",C:"cat",D:"dog",E:"egg",F:"fish",G:"goat",H:"hat",I:"igloo",J:"jump",K:"kite",L:"lion",M:"moon",N:"nest",O:"octopus",P:"pig",Q:"queen",R:"robot",S:"sun",T:"truck",U:"umbrella",V:"van",W:"web",X:"x-ray",Y:"yak",Z:"zebra"};
+  const EMOJI_MAP={A:"🍎",B:"⚾",C:"🐱",D:"🐶",E:"🥚",F:"🐟",G:"🐐",H:"🎩",I:"🏔️",J:"🦘",K:"🪁",L:"🦁",M:"🌙",N:"🪺",O:"🐙",P:"🐷",Q:"👸",R:"🤖",S:"☀️",T:"🚚",U:"☂️",V:"🚐",W:"🕸️",X:"🩻",Y:"🦬",Z:"🦓"};
+  const hero=pick(HEROES);
+  const G=[
+    // 1. What letter comes next? (sequence)
+    function(){
+      const start=rand(0,22);
+      const seq=[ALPHA[start],ALPHA[start+1],ALPHA[start+2]];
+      const answer=ALPHA[start+3];
+      const wrong1=ALPHA[(start+4)%26],wrong2=ALPHA[(start+1)%26],wrong3=ALPHA[rand(0,25)===start+3?0:rand(0,25)];
+      const choices=shuffle([answer,wrong1,wrong2,wrong3].filter((v,i,a)=>a.indexOf(v)===i));
+      while(choices.length<4)choices.push(ALPHA[rand(0,25)]);
+      return{teach:`${hero} says: Letters go in order — A, B, C... each one has a buddy that comes next!`,
+        question:`What letter comes next? ${seq.join(", ")}, ___`,
+        answer:answer,type:"choice",choices:shuffle(choices).slice(0,4),level:"Warm-Up",
+        hint1:`Say the alphabet: ${seq.join(", ")}... what comes next?`,
+        explanation:`${seq.join(", ")}, ${answer}! Great job, hero! ⭐`};
+    },
+    // 2. Identify the letter
+    function(){
+      const idx=rand(0,25);const letter=ALPHA[idx];
+      const wrongs=shuffle(ALPHA.split("").filter(l=>l!==letter)).slice(0,3);
+      return{teach:`${hero} says: Every letter has its own special look. Let's see if you know this one!`,
+        question:`What letter is this?`,
+        visual:`<span class="letter-big">${letter}</span>`,
+        answer:letter,type:"choice",choices:shuffle([letter,...wrongs]),level:"Warm-Up",
+        hint1:`This letter makes the "${WORD_MAP[letter][0]}" sound, like in "${WORD_MAP[letter]}"`,
+        explanation:`That's the letter ${letter}! ${letter} is for ${WORD_MAP[letter]}! ${EMOJI_MAP[letter]}`};
+    },
+    // 3. What sound does this letter make?
+    function(){
+      const idx=rand(0,25);const letter=ALPHA[idx];
+      const word=WORD_MAP[letter];const emoji=EMOJI_MAP[letter];
+      const wrongLetters=shuffle(ALPHA.split("").filter(l=>l!==letter)).slice(0,3);
+      const wrongs=wrongLetters.map(l=>WORD_MAP[l]);
+      return{teach:`${hero} says: Every letter makes a special sound. Listen for it at the start of words!`,
+        question:`The letter ${letter} makes a sound like the start of which word?`,
+        visual:`<span class="letter-big">${letter} ${letter.toLowerCase()}</span>`,
+        answer:word,type:"choice",choices:shuffle([word,...wrongs]),level:"Building Up",
+        hint1:`Say "${letter}" out loud. What sound does your mouth make?`,
+        explanation:`${letter} is for ${word}! ${emoji} Great listening! ⭐`};
+    },
+    // 4. Pick the word that starts with this letter
+    function(){
+      const idx=rand(0,25);const letter=ALPHA[idx];
+      const word=WORD_MAP[letter];
+      const wrongIdxs=shuffle([...Array(26).keys()].filter(i=>i!==idx)).slice(0,3);
+      const wrongs=wrongIdxs.map(i=>WORD_MAP[ALPHA[i]]);
+      return{teach:`${hero} says: The first letter of a word tells you what sound it starts with!`,
+        question:`Which word starts with the letter ${letter}?`,
+        visual:`<span class="letter-big">${letter}</span>`,
+        answer:word,type:"choice",choices:shuffle([word,...wrongs]),level:"Warm-Up",
+        hint1:`Say each word and listen to the first sound. Which one sounds like "${letter}"?`,
+        explanation:`"${word}" starts with ${letter}! ${EMOJI_MAP[letter]} You're a superstar! ⭐`};
+    },
+    // 5. Uppercase to lowercase match
+    function(){
+      const idx=rand(0,25);const upper=ALPHA[idx];const lower=upper.toLowerCase();
+      const wrongIdxs=shuffle([...Array(26).keys()].filter(i=>i!==idx)).slice(0,3);
+      const wrongs=wrongIdxs.map(i=>ALPHA[i].toLowerCase());
+      return{teach:`${hero} says: Every BIG letter has a little letter buddy!`,
+        question:`What is the lowercase version of ${upper}?`,
+        visual:`<span class="letter-big">${upper}</span>`,
+        answer:lower,type:"choice",choices:shuffle([lower,...wrongs]),level:"Warm-Up",
+        hint1:`Big ${upper} has a little buddy. Can you find it?`,
+        explanation:`${upper} and ${lower} are buddies! Great job! ⭐`};
+    },
+    // 6. What letter comes before?
+    function(){
+      const idx=rand(1,25);
+      const letter=ALPHA[idx];const answer=ALPHA[idx-1];
+      const wrongs=shuffle(ALPHA.split("").filter(l=>l!==answer&&l!==letter)).slice(0,3);
+      return{teach:`${hero} says: Letters have friends before AND after them in the alphabet!`,
+        question:`What letter comes BEFORE ${letter}?`,
+        answer:answer,type:"choice",choices:shuffle([answer,...wrongs]),level:"Building Up",
+        hint1:`Think about the alphabet song... what do you say right before "${letter}"?`,
+        explanation:`${answer} comes right before ${letter}! 🎵 You nailed it! ⭐`};
+    },
+    // 7. Is this letter a vowel?
+    function(){
+      const idx=rand(0,25);const letter=ALPHA[idx];
+      const isVowel="AEIOU".includes(letter);
+      return{teach:`${hero} says: A, E, I, O, U are special letters called VOWELS! All the others are consonants.`,
+        question:`Is the letter ${letter} a vowel?`,
+        visual:`<span class="letter-big">${letter}</span>`,
+        type:"yesno",correctAnswer:isVowel?"yes":"no",level:"Challenge",
+        hint1:`The vowels are A, E, I, O, U. Is ${letter} one of them?`,
+        explanation:isVowel?`Yes! ${letter} is a vowel! A-E-I-O-U! ⭐`:`Nope! ${letter} is a consonant, not a vowel. Vowels are A, E, I, O, U! ⭐`};
+    },
+    // 8. Fill in the missing letter
+    function(){
+      const idx=rand(1,24);
+      const before=ALPHA[idx-1],missing=ALPHA[idx],after=ALPHA[idx+1];
+      const wrongs=shuffle(ALPHA.split("").filter(l=>l!==missing&&l!==before&&l!==after)).slice(0,3);
+      return{teach:`${hero} says: If you know the letters around it, you can figure out the missing one!`,
+        question:`Fill in the blank: ${before}, ___, ${after}`,
+        answer:missing,type:"choice",choices:shuffle([missing,...wrongs]),level:"Building Up",
+        hint1:`What letter is between ${before} and ${after} in the alphabet?`,
+        explanation:`${before}, ${missing}, ${after}! The missing letter is ${missing}! ⭐`};
+    }
+  ];
+  return pick(G)();
+}
+
+// ======== SIGHT WORDS ========
+function genSightWords(){
+  const hero=pick(HEROES);const emoji=HERO_EMOJI[hero];
+  const G=[
+    // 1. Read the word — which one is it?
+    function(){
+      const word=pick(SIGHT_WORDS);
+      const wrongs=shuffle(SIGHT_WORDS.filter(w=>w!==word)).slice(0,3);
+      const isColor=COLOR_WORDS[word];
+      const vis=isColor?`<span class="sight-word-color" style="color:${isColor}">${word}</span>`:`<span class="sight-word-big">${word}</span>`;
+      return{teach:`${hero} says: Look at the word carefully. You know this one!`,
+        question:`Can you read this word?`,
+        visual:vis,
+        answer:word,type:"choice",choices:shuffle([word,...wrongs]),level:"Warm-Up",
+        hint1:`Look at the first letter: "${word[0]}". What word starts with that letter?`,
+        explanation:`The word is "${word}"! ${emoji} Awesome reading! ⭐`};
+    },
+    // 2. Pick the right word to finish the sentence
+    function(){
+      const sentences=[
+        {word:"the",sentence:"I see ___ cat.",hint:"It's a small word before 'cat'"},
+        {word:"is",sentence:"He ___ happy.",hint:"A tiny word that means something exists"},
+        {word:"see",sentence:"I can ___ you!",hint:"What your eyes do"},
+        {word:"go",sentence:"Let's ___ play!",hint:"It means to move somewhere"},
+        {word:"and",sentence:"Max ___ Mav are brothers.",hint:"A word that joins two things"},
+        {word:"my",sentence:"This is ___ toy.",hint:"It belongs to me"},
+        {word:"we",sentence:"___ like to play.",hint:"It means you and me together"},
+        {word:"can",sentence:"I ___ do it!",hint:"It means you are able to"},
+        {word:"like",sentence:"I ___ pizza!",hint:"It means you enjoy something"},
+        {word:"up",sentence:"Look ___!",hint:"The opposite of down"},
+        {word:"he",sentence:"___ is my friend.",hint:"A word for a boy"},
+        {word:"she",sentence:"___ is nice.",hint:"A word for a girl"},
+        {word:"you",sentence:"I see ___!",hint:"The person I'm talking to"},
+        {word:"come",sentence:"___ here, please!",hint:"It means to move toward someone"},
+        {word:"look",sentence:"___ at that!",hint:"What you do with your eyes"},
+        {word:"play",sentence:"Let's go ___!",hint:"Something fun to do"},
+        {word:"have",sentence:"I ___ a dog.",hint:"It means you own something"},
+        {word:"for",sentence:"This is ___ you.",hint:"A small word that means 'meant to go to'"},
+        {word:"in",sentence:"The cat is ___ the box.",hint:"The opposite of out"},
+        {word:"at",sentence:"Look ___ me!",hint:"A tiny word that points to something"},
+        {word:"am",sentence:"I ___ happy!",hint:"A word that goes with 'I'"},
+        {word:"get",sentence:"Go ___ your shoes.",hint:"It means to grab or fetch"},
+        {word:"do",sentence:"What ___ you want?",hint:"A little helper word in questions"},
+        {word:"got",sentence:"I ___ a new toy!",hint:"Past tense of 'get'"},
+        {word:"had",sentence:"She ___ fun today.",hint:"Past tense of 'have'"},
+        {word:"did",sentence:"I ___ my homework.",hint:"Past tense of 'do'"},
+        {word:"his",sentence:"That is ___ ball.",hint:"It belongs to him"},
+        {word:"has",sentence:"She ___ a red hat.",hint:"It means she owns something"},
+        {word:"on",sentence:"The book is ___ the table.",hint:"The opposite of off"},
+        {word:"it",sentence:"I like ___!",hint:"A tiny word that stands for a thing"},
+        {word:"be",sentence:"I want to ___ a hero!",hint:"It means to exist or become"},
+        {word:"here",sentence:"Come over ___!",hint:"This place right where I am"},
+        {word:"him",sentence:"I gave it to ___.",hint:"A word for a boy (not 'he')"},
+        {word:"of",sentence:"A cup ___ water.",hint:"A tiny word that connects things"},
+        {word:"me",sentence:"Give it to ___!",hint:"The word for myself"},
+        {word:"to",sentence:"I want ___ go!",hint:"A tiny word before action words"}
+      ];
+      const s=pick(sentences);
+      const wrongs=shuffle(SIGHT_WORDS.filter(w=>w!==s.word)).slice(0,3);
+      return{teach:`${hero} needs your help! Read the sentence and pick the missing word.`,
+        question:`Pick the word that fits: "${s.sentence}"`,
+        answer:s.word,type:"choice",choices:shuffle([s.word,...wrongs]),level:"Building Up",
+        hint1:s.hint,
+        explanation:`"${s.sentence.replace("___",s.word)}" — The word is "${s.word}"! ${emoji} Super reader! ⭐`};
+    },
+    // 3. Unscramble the word
+    function(){
+      const word=pick(SIGHT_WORDS.filter(w=>w.length>=2));
+      let scrambled=shuffle(word.split("")).join("");
+      let tries=0;
+      while(scrambled===word&&tries<10){scrambled=shuffle(word.split("")).join("");tries++}
+      const wrongs=shuffle(SIGHT_WORDS.filter(w=>w!==word&&w.length>=2)).slice(0,3);
+      return{teach:`${hero} says: The letters got all mixed up! Can you put them back together?`,
+        question:`Unscramble these letters to make a word: "${scrambled}"`,
+        answer:word,type:"choice",choices:shuffle([word,...wrongs]),level:"Challenge",
+        hint1:`The word has ${word.length} letters and starts with "${word[0]}"`,
+        explanation:`The scrambled word is "${word}"! ${emoji} Great job unscrambling! ⭐`};
+    },
+    // 4. Find the word that's different
+    function(){
+      const word=pick(SIGHT_WORDS);
+      const different=pick(SIGHT_WORDS.filter(w=>w!==word));
+      const spots=rand(0,3);
+      const list=[word,word,word,word];
+      list[spots]=different;
+      return{teach:`${hero} says: One of these words is not like the others. Look carefully!`,
+        question:`Which word is DIFFERENT from the others?`,
+        visual:`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:center;font-family:Fredoka;font-size:28px;color:#1A1A2E;padding:10px">${list.map((w,i)=>`<div style="padding:12px;background:#f8fafc;border-radius:10px">${w}</div>`).join("")}</div>`,
+        answer:different,type:"choice",choices:shuffle([different,word]),level:"Building Up",
+        hint1:`Look at each word carefully. Three are the same and one is different!`,
+        explanation:`"${different}" is the different word! The others all say "${word}". ${emoji} Eagle eyes! ⭐`};
+    },
+    // 5. How many letters in this word?
+    function(){
+      const word=pick(SIGHT_WORDS);
+      const len=word.length;
+      const wrongs=shuffle([len-1,len+1,len+2].filter(n=>n>0));
+      const isColor=COLOR_WORDS[word];
+      const vis=isColor?`<span class="sight-word-color" style="color:${isColor}">${word}</span>`:`<span class="sight-word-big">${word}</span>`;
+      return{teach:`${hero} says: Count each letter in the word. Point to each one as you count!`,
+        question:`How many letters are in this word?`,
+        visual:vis,
+        answer:len,type:"choice",choices:shuffle([String(len),...wrongs.slice(0,3).map(String)]),level:"Warm-Up",
+        hint1:`Point to each letter and count: ${word.split("").join(" - ")}`,
+        explanation:`"${word}" has ${len} letters! ${emoji} Great counting! ⭐`};
+    },
+    // 6. Match the word to its first letter
+    function(){
+      const word=pick(SIGHT_WORDS);
+      const firstLetter=word[0].toUpperCase();
+      const wrongs=shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").filter(l=>l!==firstLetter)).slice(0,3);
+      const isColor=COLOR_WORDS[word];
+      const vis=isColor?`<span class="sight-word-color" style="color:${isColor}">${word}</span>`:`<span class="sight-word-big">${word}</span>`;
+      return{teach:`${hero} says: Every word starts with a letter. What letter does this word begin with?`,
+        question:`What letter does this word start with?`,
+        visual:vis,
+        answer:firstLetter,type:"choice",choices:shuffle([firstLetter,...wrongs]),level:"Warm-Up",
+        hint1:`Look at the very first letter of the word "${word}"`,
+        explanation:`"${word}" starts with ${firstLetter}! ${emoji} Nice! ⭐`};
+    }
+  ];
+  return pick(G)();
+}
+
+// ======== KINDERGARTEN MATH ========
+function genKMath(){
+  const hero=pick(HEROES);const emoji=HERO_EMOJI[hero];
+  const thing=pick(MAV_THINGS);
+  const emojiMap={"monster trucks":"🚛","Legos":"🧱","guitars":"🎸","baseballs":"⚾","llamas":"🦙","action figures":"🦸","stickers":"⭐","crayons":"🖍️","toy cars":"🚗","cookies":"🍪"};
+  const te=emojiMap[thing]||"⭐";
+  const G=[
+    // 1. Counting objects
+    function(){
+      const n=rand(3,10);
+      const emojis=Array(n).fill(te).join(" ");
+      const wrongs=shuffle([n-1,n+1,n+2].filter(x=>x>0&&x!==n));
+      return{teach:`${hero} says: Count each one carefully. Point as you count!`,
+        question:`How many ${thing} do you see?`,
+        visual:`<div class="emoji-count">${emojis}</div>`,
+        answer:String(n),type:"choice",choices:shuffle([String(n),...wrongs.slice(0,3).map(String)]),level:"Warm-Up",
+        hint1:`Try counting each ${te} one at a time!`,
+        explanation:`There are ${n} ${thing}! ${te} Great counting! ⭐`};
+    },
+    // 2. Addition (sums up to 10)
+    function(){
+      const a=rand(1,5),b=rand(1,5);const sum=a+b;
+      const ae=Array(a).fill(te).join(" ");
+      const be=Array(b).fill(te).join(" ");
+      return{teach:`${hero} says: Adding means putting groups together! Count them all up!`,
+        question:`${a} + ${b} = ?`,
+        visual:`<div class="emoji-count">${ae}  ➕  ${be}</div>`,
+        answer:sum,type:"number",level:"Warm-Up",
+        hint1:`Count all the ${thing} together: ${ae} ${be}`,
+        explanation:`${a} + ${b} = ${sum}! ${te} You added like a hero! ⭐`};
+    },
+    // 3. Subtraction (no negatives)
+    function(){
+      const a=rand(4,10),b=rand(1,a-1);const diff=a-b;
+      return{teach:`${hero} says: Subtracting means taking some away. Start with the big number and count backwards!`,
+        question:`${hero} had ${a} ${thing}. ${b} went away. How many are left?`,
+        visual:`<div class="emoji-count">${Array(a).fill(te).join(" ")}<br>➖ ${Array(b).fill("❌").join(" ")}</div>`,
+        answer:diff,type:"number",level:"Building Up",
+        hint1:`Start with ${a} and take away ${b}. Count what's left!`,
+        explanation:`${a} - ${b} = ${diff}! ${te} Super subtraction! ⭐`};
+    },
+    // 4. Which is more?
+    function(){
+      let a=rand(1,9),b=rand(1,9);
+      while(a===b)b=rand(1,9);
+      const answer=String(Math.max(a,b));
+      return{teach:`${hero} says: "More" means the bigger number. Which group has more?`,
+        question:`Which number is MORE: ${a} or ${b}?`,
+        visual:`<div class="emoji-count">${a} ⚡ ${b}</div>`,
+        answer:answer,type:"choice",choices:[String(a),String(b)],level:"Warm-Up",
+        hint1:`Think about counting — which number do you say later?`,
+        explanation:`${answer} is more! ${a>b?a:b} > ${a>b?b:a} ${emoji} ⭐`};
+    },
+    // 5. What number comes after?
+    function(){
+      const n=rand(1,18);const answer=n+1;
+      const wrongs=shuffle([n-1,n+2,n+3].filter(x=>x>=0&&x!==answer));
+      return{teach:`${hero} says: Numbers go in order, just like the alphabet! What comes next?`,
+        question:`What number comes after ${n}?`,
+        answer:String(answer),type:"choice",choices:shuffle([String(answer),...wrongs.slice(0,3).map(String)]),level:"Warm-Up",
+        hint1:`Count: ${n}... what number do you say next?`,
+        explanation:`${n}... ${answer}! The next number is ${answer}! ${emoji} ⭐`};
+    },
+    // 6. Simple word problems (addition)
+    function(){
+      const a=rand(1,5),b=rand(1,5);const sum=a+b;
+      const hero2=pick(HEROES.filter(h=>h!==hero));
+      return{teach:`${hero} says: Read carefully! When someone GETS more or GIVES more, that means ADD!`,
+        question:`${hero} has ${a} ${thing}. ${hero2} gives him ${b} more. How many now?`,
+        answer:sum,type:"number",level:"Building Up",
+        hint1:`${hero} starts with ${a}. Then gets ${b} more. Put them together!`,
+        explanation:`${a} + ${b} = ${sum} ${thing}! ${te} Hero math! ⭐`};
+    },
+    // 7. What number comes before?
+    function(){
+      const n=rand(2,20);const answer=n-1;
+      const wrongs=shuffle([n+1,n-2,n+2].filter(x=>x>=0&&x!==answer));
+      return{teach:`${hero} says: Just like "after" means the next number, "before" means the one right behind it!`,
+        question:`What number comes BEFORE ${n}?`,
+        answer:String(answer),type:"choice",choices:shuffle([String(answer),...wrongs.slice(0,3).map(String)]),level:"Building Up",
+        hint1:`Count backwards from ${n}. What number did you just say?`,
+        explanation:`${answer} comes right before ${n}! ${emoji} ⭐`};
+    },
+    // 8. How many more?
+    function(){
+      let a=rand(4,10),b=rand(1,a-1);const diff=a-b;
+      return{teach:`${hero} says: "How many more" means finding the difference. Subtract the smaller from the bigger!`,
+        question:`${hero} has ${a} ${thing}. ${pick(HEROES.filter(h=>h!==hero))} has ${b}. How many MORE does ${hero} have?`,
+        answer:diff,type:"number",level:"Challenge",
+        hint1:`${hero} has more. To find how many more, subtract: ${a} - ${b} = ?`,
+        explanation:`${a} - ${b} = ${diff}! ${hero} has ${diff} more ${thing}! ${emoji} ⭐`};
+    },
+    // 9. Doubles addition
+    function(){
+      const n=rand(1,5);const sum=n+n;
+      return{teach:`${hero} says: Doubles are easy — it's the same number added to itself!`,
+        question:`${n} + ${n} = ?`,
+        visual:`<div class="emoji-count">${Array(n).fill(te).join(" ")}  ➕  ${Array(n).fill(te).join(" ")}</div>`,
+        answer:sum,type:"number",level:"Warm-Up",
+        hint1:`Both groups have ${n}. Count them all together!`,
+        explanation:`${n} + ${n} = ${sum}! Doubles are super! ${emoji} ⭐`};
+    },
+    // 10. Ten frame counting
+    function(){
+      const n=rand(1,10);
+      const filled=Array(n).fill(te);
+      const empty=Array(10-n).fill("⬜");
+      const row1=[...filled,...empty].slice(0,5).join(" ");
+      const row2=[...filled,...empty].slice(5,10).join(" ");
+      const wrongs=shuffle([n-1,n+1,n+2].filter(x=>x>=0&&x<=10&&x!==n));
+      return{teach:`${hero} says: A ten frame has 10 spots. Count the filled ones!`,
+        question:`How many ${thing} are in the ten frame?`,
+        visual:`<div class="emoji-count" style="font-size:28px">${row1}<br>${row2}</div>`,
+        answer:String(n),type:"choice",choices:shuffle([String(n),...wrongs.slice(0,3).map(String)]),level:"Building Up",
+        hint1:`Count each ${te} in the frame. Skip the empty boxes!`,
+        explanation:`There are ${n} ${thing} in the frame! ${emoji} ⭐`};
+    }
+  ];
+  return pick(G)();
+}
+
+// ============ MAVERICK'S TOPICS ============
+const MAV_TOPICS=[
+  {id:"alphabet",name:"Alphabet Adventure",icon:"🔤",desc:"Letters, sounds & words",gen:genAlphabet,
+   takeaway:"Every letter has a name, a sound, and a shape. Keep practicing and you'll know them all!"},
+  {id:"sightwords",name:"Sight Words",icon:"📖",desc:"Read words by sight",gen:genSightWords,
+   takeaway:"Sight words are words you see all the time. The more you practice, the faster you'll read!"},
+  {id:"kmath",name:"Math Heroes",icon:"🔢",desc:"Counting, adding & subtracting",gen:genKMath,
+   takeaway:"Math is like a superpower! Count carefully, add groups together, and subtract to take away!"}
+];
+
 // ============ STATE ============
 const TEAM_CONFETTI=["#0076B6","#B0B7BC","#FA4616","#FFCB05","#00274C","#0C2340"];
-const NUM_QUESTIONS=20;
-let S={screen:"home",topic:null,questions:[],qIndex:0,input:"",hintsUsed:0,feedback:null,score:0,attempts:0,results:[]};
+const MAX_QUESTIONS=20;
+const MAV_QUESTIONS=10;
+let S={screen:"landing",player:"none",topic:null,questions:[],qIndex:0,input:"",hintsUsed:0,feedback:null,score:0,attempts:0,results:[]};
 
-function confetti(){for(let i=0;i<35;i++){const el=document.createElement("div");el.className="confetti-piece";const s=6+Math.random()*8;el.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;background:${TEAM_CONFETTI[i%6]};border-radius:${Math.random()>.5?"50%":"2px"};animation-delay:${Math.random()*.5}s;`;document.body.appendChild(el);setTimeout(()=>el.remove(),3000)}}
+function confetti(colors){
+  const c=colors||TEAM_CONFETTI;
+  for(let i=0;i<35;i++){const el=document.createElement("div");el.className="confetti-piece";const s=6+Math.random()*8;el.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;background:${c[i%c.length]};border-radius:${Math.random()>.5?"50%":"2px"};animation-delay:${Math.random()*.5}s;`;document.body.appendChild(el);setTimeout(()=>el.remove(),3000)}
+}
+
+function getNumQ(){return S.player==="max"?MAX_QUESTIONS:MAV_QUESTIONS}
+function getTopics(){return S.player==="max"?TOPICS:MAV_TOPICS}
+function getMaxHints(){return S.player==="max"?2:1}
+function getMaxAttempts(){return S.player==="max"?3:2}
+function getConfettiColors(){return S.player==="max"?TEAM_CONFETTI:MAV_CONFETTI}
 
 function generateQuiz(topicId){
-  const topic=TOPICS.find(t=>t.id===topicId);
-  // Generate questions with difficulty curve: 7 Warm-Up, 7 Building Up, 6 Challenge
-  const warmUp=[],buildUp=[],challenge=[];
-  let safety=0;
-  while((warmUp.length<10||buildUp.length<10||challenge.length<10)&&safety<200){
-    safety++;
-    const q=topic.gen();
-    if(q.level==="Warm-Up"&&warmUp.length<10)warmUp.push(q);
-    else if(q.level==="Building Up"&&buildUp.length<10)buildUp.push(q);
-    else if(q.level==="Challenge"&&challenge.length<10)challenge.push(q);
+  const topics=getTopics();
+  const topic=topics.find(t=>t.id===topicId);
+  const numQ=getNumQ();
+  if(S.player==="max"){
+    const warmUp=[],buildUp=[],challenge=[];
+    let safety=0;
+    while((warmUp.length<10||buildUp.length<10||challenge.length<10)&&safety<200){
+      safety++;
+      const q=topic.gen();
+      if(q.level==="Warm-Up"&&warmUp.length<10)warmUp.push(q);
+      else if(q.level==="Building Up"&&buildUp.length<10)buildUp.push(q);
+      else if(q.level==="Challenge"&&challenge.length<10)challenge.push(q);
+    }
+    const selected=[];
+    shuffle(warmUp).slice(0,7).forEach(q=>selected.push(q));
+    shuffle(buildUp).slice(0,7).forEach(q=>selected.push(q));
+    shuffle(challenge).slice(0,6).forEach(q=>selected.push(q));
+    while(selected.length<numQ){selected.push(topic.gen())}
+    selected.forEach((q,i)=>q._num=i+1);
+    return selected.slice(0,numQ);
+  } else {
+    // Mav: simpler — just generate and shuffle
+    const qs=[];
+    let safety=0;
+    while(qs.length<numQ+5&&safety<100){safety++;qs.push(topic.gen())}
+    const selected=shuffle(qs).slice(0,numQ);
+    selected.forEach((q,i)=>q._num=i+1);
+    return selected;
   }
-  // Pick from each bucket for a nice progression
-  const selected=[];
-  shuffle(warmUp).slice(0,7).forEach(q=>selected.push(q));
-  shuffle(buildUp).slice(0,7).forEach(q=>selected.push(q));
-  shuffle(challenge).slice(0,6).forEach(q=>selected.push(q));
-  // If we're short, fill with any
-  while(selected.length<NUM_QUESTIONS){selected.push(topic.gen())}
-  // Number them
-  selected.forEach((q,i)=>q._num=i+1);
-  return selected.slice(0,NUM_QUESTIONS);
 }
 
 function streakDots(){
+  const numQ=getNumQ();
   return S.questions.map((_,i)=>{
     if(i<S.results.length){const r=S.results[i];return`<div class="streak-dot ${r.correct?'correct':'wrong'}">${r.correct?'✓':'✗'}</div>`}
     if(i===S.qIndex&&S.screen==='quiz')return`<div class="streak-dot current">${i+1}</div>`;
@@ -1168,48 +1611,124 @@ function streakDots(){
 // ============ RENDER ============
 function render(){
   const app=document.getElementById("app");
+  const isMav=S.player==="mav";
+  const numQ=getNumQ();
 
-  if(S.screen==="home"){
-    const topicBtns=TOPICS.map(t=>`<div class="topic-btn" onclick="startTopic('${t.id}')"><span class="icon">${t.icon}</span><div class="name">${t.name}</div><div class="desc">${t.desc}</div></div>`).join("");
+  // Set body theme
+  document.body.className=S.screen==="landing"?"landing-theme":isMav?"mav-theme":"max-theme";
+
+  // === LANDING ===
+  if(S.screen==="landing"){
     app.innerHTML=`<div class="card">
-      <div class="hero">
-        <div class="tagline">6th Grade Math</div>
-        <div class="player-name">MAX</div>
-        <div class="jersey">🦁 Pick a topic and let's practice!</div>
+      <div class="landing-title">🏠 Jones Boys Learning Hub</div>
+      <div class="landing-sub">Pick your player!</div>
+      <div class="player-cards">
+        <div class="player-card max-card" onclick="pickPlayer('max')">
+          <span class="pc-emoji">🏈</span>
+          <span class="pc-name">MAX</span>
+          <span class="pc-grade">6th Grade Math</span>
+          <span class="pc-desc">7 topics • 84 plays</span>
+        </div>
+        <div class="player-card mav-card" onclick="pickPlayer('mav')">
+          <span class="pc-emoji">🦸</span>
+          <span class="pc-name">MAV</span>
+          <span class="pc-grade">Kindergarten</span>
+          <span class="pc-desc">ABCs • Words • Math</span>
+        </div>
       </div>
-      <h3 style="font-family:'Russo One',sans-serif;color:#0C2340;font-size:16px;margin-bottom:14px;text-align:center">CHOOSE YOUR PLAY</h3>
-      <div class="topic-grid">${topicBtns}</div>
     </div>`;
     return;
   }
 
-  if(S.screen==="done"){
-    const topic=TOPICS.find(t=>t.id===S.topic);
-    const pct=Math.round((S.score/NUM_QUESTIONS)*100);
-    const emoji=pct>=80?"🏆":pct>=60?"💪":"📚";
-    const msg=pct>=80?"MVP performance, Max! You crushed it!":pct>=60?"Solid game! A few more reps and you'll have it locked down.":"Good first drive! Every great player needs practice. Run it back!";
-    const grad=pct>=80?"linear-gradient(135deg,#4ade80,#22c55e)":pct>=60?"linear-gradient(135deg,#FFCB05,#fbbf24)":"linear-gradient(135deg,#FA4616,#f87171)";
-    if(pct>=80)confetti();
-    const rows=S.results.map((r,i)=>`<div class="result-row"><span class="icon">${r.correct?"✅":"❌"}</span><span class="q-text">Q${i+1}: ${S.questions[i].question.slice(0,50)}...</span><span class="hints">${r.hintsUsed>0?r.hintsUsed+" hint"+(r.hintsUsed>1?"s":""):"No hints"}</span></div>`).join("");
-    app.innerHTML=`<div class="card"><div style="text-align:center;padding:20px 0">
-      <div style="font-size:56px;margin-bottom:8px">${emoji}</div>
-      <h1 style="font-family:'Russo One',sans-serif;font-size:24px;color:#0C2340">FINAL SCORE</h1>
-      <div class="result-score" style="background:${grad};-webkit-background-clip:text;background-clip:text">${S.score} / ${NUM_QUESTIONS}</div>
-      <p style="font-size:15px;color:#64748b;margin-bottom:20px;line-height:1.5">${msg}</p>
-      <div class="results-box"><h3>📋 Game Stats</h3>${rows}</div>
-      <div class="takeaway"><h3>🔑 Playbook Takeaway</h3><p>${topic.takeaway}</p></div>
-      <button class="btn-start" onclick="startTopic('${S.topic}')" style="margin-bottom:10px">RUN IT BACK 🔄</button>
-      <button class="btn-back" onclick="goHome()">PICK A DIFFERENT TOPIC</button>
-    </div></div>`;
+  // === HOME ===
+  if(S.screen==="home"){
+    const topics=getTopics();
+    const topicBtns=topics.map(t=>`<div class="topic-btn" onclick="startTopic('${t.id}')"><span class="icon">${t.icon}</span><div class="name">${t.name}</div><div class="desc">${t.desc}</div></div>`).join("");
+    const wrapper=isMav?'<div class="mav">':"<div>";
+    if(isMav){
+      app.innerHTML=`${wrapper}<div class="card">
+        <div class="hero">
+          <div class="tagline">Kindergarten Hero</div>
+          <div class="player-name">MAV</div>
+          <div class="jersey">🦸 Pick an adventure and let's learn!</div>
+        </div>
+        <h3 style="font-family:'Fredoka',sans-serif;color:#1A1A2E;font-size:18px;margin-bottom:14px;text-align:center">CHOOSE YOUR MISSION</h3>
+        <div class="topic-grid">${topicBtns}</div>
+        <div style="text-align:center"><button class="btn-back" onclick="goLanding()">← Switch Player</button></div>
+      </div></div>`;
+    } else {
+      app.innerHTML=`<div class="card">
+        <div class="hero">
+          <div class="tagline">6th Grade Math</div>
+          <div class="player-name">MAX</div>
+          <div class="jersey">🦁 Pick a topic and let's practice!</div>
+        </div>
+        <h3 style="font-family:'Russo One',sans-serif;color:#0C2340;font-size:16px;margin-bottom:14px;text-align:center">CHOOSE YOUR PLAY</h3>
+        <div class="topic-grid">${topicBtns}</div>
+        <div style="text-align:center"><button class="btn-back" onclick="goLanding()">← Switch Player</button></div>
+      </div>`;
+    }
     return;
   }
 
-  // Quiz screen
+  // === DONE ===
+  if(S.screen==="done"){
+    const topics=getTopics();
+    const topic=topics.find(t=>t.id===S.topic);
+    const pct=Math.round((S.score/numQ)*100);
+    const wrapper=isMav?'<div class="mav">':"<div>";
+
+    if(isMav){
+      const emoji2=pct>=80?"🌟":pct>=60?"💪":"📚";
+      const msg=pct>=80?"AMAZING JOB, MAV! You're a SUPERHERO!":pct>=60?"Great work, hero! Keep practicing and you'll be unstoppable!":"Good try, hero! Every superhero practices! Let's try again!";
+      const grad=pct>=80?"linear-gradient(135deg,#FFD700,#f59e0b)":pct>=60?"linear-gradient(135deg,#E23636,#ff4444)":"linear-gradient(135deg,#0066CC,#3b82f6)";
+      if(pct>=80)confetti(MAV_CONFETTI);
+      const rows=S.results.map((r,i)=>`<div class="result-row"><span class="icon">${r.correct?"⭐":"💫"}</span><span class="q-text">Q${i+1}: ${S.questions[i].question.slice(0,40)}...</span></div>`).join("");
+      app.innerHTML=`${wrapper}<div class="card"><div style="text-align:center;padding:20px 0">
+        <div style="font-size:64px;margin-bottom:8px">${emoji2}</div>
+        <h1 style="font-family:'Fredoka',sans-serif;font-size:24px;color:#1A1A2E">MISSION COMPLETE!</h1>
+        <div class="result-score" style="background:${grad};-webkit-background-clip:text;background-clip:text">${S.score} / ${numQ}</div>
+        <p style="font-size:16px;color:#64748b;margin-bottom:20px;line-height:1.5;font-family:'Fredoka',sans-serif">${msg}</p>
+        <div class="results-box"><h3>📋 Hero Report</h3>${rows}</div>
+        <div class="takeaway"><h3>🔑 Hero Tip</h3><p>${topic.takeaway}</p></div>
+        <button class="btn-start" onclick="startTopic('${S.topic}')" style="margin-bottom:10px">TRY AGAIN! 🦸</button>
+        <button class="btn-back" onclick="goHome()">PICK ANOTHER MISSION</button>
+      </div></div></div>`;
+    } else {
+      const emoji2=pct>=80?"🏆":pct>=60?"💪":"📚";
+      const msg=pct>=80?"MVP performance, Max! You crushed it!":pct>=60?"Solid game! A few more reps and you'll have it locked down.":"Good first drive! Every great player needs practice. Run it back!";
+      const grad=pct>=80?"linear-gradient(135deg,#4ade80,#22c55e)":pct>=60?"linear-gradient(135deg,#FFCB05,#fbbf24)":"linear-gradient(135deg,#FA4616,#f87171)";
+      if(pct>=80)confetti();
+      const rows=S.results.map((r,i)=>`<div class="result-row"><span class="icon">${r.correct?"✅":"❌"}</span><span class="q-text">Q${i+1}: ${S.questions[i].question.slice(0,50)}...</span><span class="hints">${r.hintsUsed>0?r.hintsUsed+" hint"+(r.hintsUsed>1?"s":""):"No hints"}</span></div>`).join("");
+      app.innerHTML=`<div class="card"><div style="text-align:center;padding:20px 0">
+        <div style="font-size:56px;margin-bottom:8px">${emoji2}</div>
+        <h1 style="font-family:'Russo One',sans-serif;font-size:24px;color:#0C2340">FINAL SCORE</h1>
+        <div class="result-score" style="background:${grad};-webkit-background-clip:text;background-clip:text">${S.score} / ${numQ}</div>
+        <p style="font-size:15px;color:#64748b;margin-bottom:20px;line-height:1.5">${msg}</p>
+        <div class="results-box"><h3>📋 Game Stats</h3>${rows}</div>
+        <div class="takeaway"><h3>🔑 Playbook Takeaway</h3><p>${topic.takeaway}</p></div>
+        <button class="btn-start" onclick="startTopic('${S.topic}')" style="margin-bottom:10px">RUN IT BACK 🔄</button>
+        <button class="btn-back" onclick="goHome()">PICK A DIFFERENT TOPIC</button>
+      </div></div>`;
+    }
+    return;
+  }
+
+  // === QUIZ ===
   const q=S.questions[S.qIndex];
-  const topic=TOPICS.find(t=>t.id===S.topic);
+  const topics=getTopics();
+  const topic=topics.find(t=>t.id===S.topic);
   const done=S.feedback&&(S.feedback.type==="correct"||S.feedback.type==="showAnswer");
-  const lc=q.level==="Warm-Up"?"#0076B6":q.level==="Building Up"?"#FFCB05":"#FA4616";
-  const ltc=q.level==="Building Up"?"#78350f":"white";
+  const maxHints=getMaxHints();
+  const wrapper=isMav?'<div class="mav">':"<div>";
+
+  let lc,ltc;
+  if(isMav){
+    lc="#E23636";ltc="white";
+  } else {
+    lc=q.level==="Warm-Up"?"#0076B6":q.level==="Building Up"?"#FFCB05":"#FA4616";
+    ltc=q.level==="Building Up"?"#78350f":"white";
+  }
 
   let inp="";
   if(!done){
@@ -1218,47 +1737,69 @@ function render(){
     }else if(q.type==="choice"&&q.choices){
       inp=`<div class="choices">${q.choices.map(c=>`<button class="choice-btn" onclick="check('${c.replace(/'/g,"\\'")}')">${c}</button>`).join("")}</div>`;
     }else{
-      inp=`<div class="input-row"><input type="number" step="any" id="ai" value="${S.input}" placeholder="Your answer..." onkeydown="if(event.key==='Enter')check()"><button class="btn-check" onclick="check()">CHECK</button></div>`;
+      inp=`<div class="input-row"><input type="number" step="any" id="ai" value="${S.input}" placeholder="${isMav?'Type your answer...':'Your answer...'}" onkeydown="if(event.key==='Enter')check()"><button class="btn-check" onclick="check()">CHECK</button></div>`;
     }
   }
 
   let hint="";
-  if(!done&&S.hintsUsed<2){hint=`<button class="hint-btn" onclick="getHint()">💡 ${S.hintsUsed===0?"Get a hint":"One more hint"} (${2-S.hintsUsed} left)</button>`}
+  if(!done&&S.hintsUsed<maxHints){hint=`<button class="hint-btn" onclick="getHint()">💡 ${S.hintsUsed===0?"Get a hint":"One more hint"} (${maxHints-S.hintsUsed} left)</button>`}
 
   let fb="";
-  if(S.feedback){const f=S.feedback;const pfx=f.type==="correct"?"🎉 TOUCHDOWN! ":f.type==="hint"?"💡 Coach says: ":f.type==="showAnswer"?"📝 Here's the play: ":"";fb=`<div class="feedback ${f.type}"><p>${pfx}${f.msg}</p></div>`}
+  if(S.feedback){
+    const f=S.feedback;
+    let pfx;
+    if(isMav){
+      pfx=f.type==="correct"?"🌟 SUPER! ":f.type==="hint"?"💡 Hint: ":f.type==="showAnswer"?"📝 The answer is: ":"";
+    } else {
+      pfx=f.type==="correct"?"🎉 TOUCHDOWN! ":f.type==="hint"?"💡 Coach says: ":f.type==="showAnswer"?"📝 Here's the play: ":"";
+    }
+    fb=`<div class="feedback ${f.type}"><p>${pfx}${f.msg}</p></div>`;
+  }
 
   let nx="";
-  if(done){const label=S.qIndex+1<NUM_QUESTIONS?"NEXT PLAY →":"SEE FINAL SCORE 🏆";nx=`<button class="btn-next" onclick="next()">${label}</button>`}
+  if(done){
+    const label=S.qIndex+1<numQ?(isMav?"NEXT! →":"NEXT PLAY →"):(isMav?"SEE RESULTS! 🌟":"SEE FINAL SCORE 🏆");
+    nx=`<button class="btn-next" onclick="next()">${label}</button>`;
+  }
 
-  app.innerHTML=`<div class="card">
+  const levelLabel=isMav?`Question ${S.qIndex+1}`:q.level;
+  const headerFont=isMav?"Fredoka":"Russo One";
+
+  app.innerHTML=`${wrapper}<div class="card">
     <div class="header-bar">
       <div class="logo">${topic.icon}</div>
-      <div class="title-area"><h2>${topic.name}</h2><div class="subtitle">Q${S.qIndex+1} of ${NUM_QUESTIONS}</div></div>
-      <div class="score-badge">${S.score} pts</div>
+      <div class="title-area"><h2 style="font-family:'${headerFont}',sans-serif">${topic.name}</h2><div class="subtitle">Q${S.qIndex+1} of ${numQ}</div></div>
+      <div class="score-badge">${S.score} ${isMav?"⭐":"pts"}</div>
     </div>
     <div class="streak-bar">${streakDots()}</div>
-    <div class="progress-track"><div class="progress-fill" style="width:${(S.qIndex/NUM_QUESTIONS)*100}%"></div></div>
-    <span class="level-badge" style="background:${lc};color:${ltc}">${q.level}</span>
-    <div class="teach-box"><p>📖 <strong>Learn:</strong> ${q.teach}</p></div>
-    <div class="question-box"><p>${q.question}</p>${q.visual?`<pre class="visual">${q.visual}</pre>`:""}</div>
+    <div class="progress-track"><div class="progress-fill" style="width:${(S.qIndex/numQ)*100}%"></div></div>
+    <span class="level-badge" style="background:${lc};color:${ltc}">${levelLabel}</span>
+    <div class="teach-box"><p>${isMav?"🦸":"📖"} <strong>${isMav?"Hero Tip:":"Learn:"}</strong> ${q.teach}</p></div>
+    <div class="question-box"><p>${q.question}</p>${q.visual?`<div class="visual" style="${isMav?'background:#1A1A2E;color:#FFD700':''}">${q.visual}</div>`:""}</div>
     ${inp}${hint}${fb}${nx}
-    <div style="text-align:center"><button class="btn-back" onclick="goHome()">← Back to topics</button></div>
-  </div>`;
+    <div style="text-align:center"><button class="btn-back" onclick="goHome()">← Back to ${isMav?"missions":"topics"}</button></div>
+  </div></div>`;
 
   if(!done&&q.type==="number"){const el=document.getElementById("ai");if(el){el.focus();el.value=S.input}}
 }
 
 // ============ ACTIONS ============
-function goHome(){S={screen:"home",topic:null,questions:[],qIndex:0,input:"",hintsUsed:0,feedback:null,score:0,attempts:0,results:[]};render()}
+function goLanding(){S={screen:"landing",player:"none",topic:null,questions:[],qIndex:0,input:"",hintsUsed:0,feedback:null,score:0,attempts:0,results:[]};render()}
+
+function pickPlayer(p){S.player=p;S.screen="home";render()}
+
+function goHome(){S.screen="home";S.topic=null;S.questions=[];S.qIndex=0;S.input="";S.hintsUsed=0;S.feedback=null;S.score=0;S.attempts=0;S.results=[];render()}
 
 function startTopic(id){
-  S={screen:"quiz",topic:id,questions:generateQuiz(id),qIndex:0,input:"",hintsUsed:0,feedback:null,score:0,attempts:0,results:[]};
+  S={screen:"quiz",player:S.player,topic:id,questions:generateQuiz(id),qIndex:0,input:"",hintsUsed:0,feedback:null,score:0,attempts:0,results:[]};
   render();
 }
 
 function check(v){
   const q=S.questions[S.qIndex];
+  const isMav=S.player==="mav";
+  const maxHints=getMaxHints();
+  const maxAttempts=getMaxAttempts();
   let uv;
   if(q.type==="yesno"||q.type==="choice"){uv=v}else{const el=document.getElementById("ai");uv=el?el.value.trim():S.input.trim();S.input=uv}
   if(!uv&&uv!==0)return;
@@ -1266,19 +1807,35 @@ function check(v){
   if(q.type==="yesno"){ok=uv.toLowerCase()===q.correctAnswer}
   else if(q.type==="choice"){ok=uv===String(q.answer)}
   else{ok=Math.abs(Number(uv)-q.answer)<0.01}
-  if(ok){S.score++;confetti();S.feedback={type:"correct",msg:q.explanation};S.results.push({correct:true,hintsUsed:S.hintsUsed,attempts:S.attempts+1})}
-  else{S.attempts++;if(S.attempts>=3&&S.hintsUsed>=2){S.feedback={type:"showAnswer",msg:q.explanation};S.results.push({correct:false,hintsUsed:S.hintsUsed,attempts:S.attempts})}else{S.feedback={type:"tryAgain",msg:S.attempts===1?"Incomplete pass! Try again — grab a hint below 👇":"Almost had it! One more shot, or use a hint."}}}
+  if(ok){
+    S.score++;confetti(getConfettiColors());
+    S.feedback={type:"correct",msg:q.explanation};
+    S.results.push({correct:true,hintsUsed:S.hintsUsed,attempts:S.attempts+1});
+  } else {
+    S.attempts++;
+    if(S.attempts>=maxAttempts&&S.hintsUsed>=maxHints){
+      S.feedback={type:"showAnswer",msg:q.explanation};
+      S.results.push({correct:false,hintsUsed:S.hintsUsed,attempts:S.attempts});
+    } else {
+      if(isMav){
+        S.feedback={type:"tryAgain",msg:S.attempts===1?"Almost! Try again — grab a hint! 💡":"One more try! You can do it, hero! 💪"};
+      } else {
+        S.feedback={type:"tryAgain",msg:S.attempts===1?"Incomplete pass! Try again — grab a hint below 👇":"Almost had it! One more shot, or use a hint."};
+      }
+    }
+  }
   render();
 }
 
 function getHint(){
   const q=S.questions[S.qIndex];
   if(S.hintsUsed===0){S.feedback={type:"hint",msg:q.hint1};S.hintsUsed=1}
-  else if(S.hintsUsed===1){S.feedback={type:"hint",msg:q.hint2};S.hintsUsed=2}
+  else if(S.hintsUsed===1&&S.player==="max"&&q.hint2){S.feedback={type:"hint",msg:q.hint2};S.hintsUsed=2}
   render();
 }
 
 function next(){
+  const numQ=getNumQ();
   if(S.qIndex+1<S.questions.length){S.qIndex++;S.input="";S.hintsUsed=0;S.feedback=null;S.attempts=0;render()}
   else{S.screen="done";render()}
 }
